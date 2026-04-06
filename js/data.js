@@ -88,7 +88,7 @@ const EXPERIENCE = [
     en: {
       role: 'GIS Infrastructure & Support Specialist',
       bullets: [
-        'Administer and maintain a federated ArcGIS Enterprise 11.x environment, ensuring continuous availability of web GIS services across 3+ business units of Grupo SURA.',
+        'Administer and maintain a federated ArcGIS Enterprise 11.x environment, ensuring continuous availability of web GIS services across 3+ business units of Geosura Geoportal.',
         'Automated the full service publishing lifecycle with Python Toolboxes (ArcPy), cutting deployment time by ~60% and eliminating manual errors.',
         'Diagnose and resolve incidents in corporate GIS infrastructure, coordinating with IT teams to maintain service continuity and data integrity.',
         'Implemented OAuth2 Client Credentials flow for a public-facing geoportal, managing token lifecycle and service-sharing strategies.',
@@ -100,7 +100,7 @@ const EXPERIENCE = [
     es: {
       role: 'Especialista SIG — Soporte e Infraestructura',
       bullets: [
-        'Administro y mantengo el entorno ArcGIS Enterprise 11.x federado, asegurando la disponibilidad continua de servicios web SIG en más de 3 unidades de negocio de Grupo SURA.',
+        'Administro y mantengo el entorno ArcGIS Enterprise 11.x federado, asegurando la disponibilidad continua de servicios web SIG en más de 3 unidades de negocio de Geoportal Geosura.',
         'Automaticé el ciclo completo de publicación de servicios con Python Toolboxes (ArcPy), reduciendo el tiempo de despliegue en ~60% y eliminando errores manuales.',
         'Diagnostico y resuelvo incidentes en la infraestructura SIG corporativa, coordinando con equipos TI para mantener la continuidad del servicio e integridad de los datos.',
         'Implementé el flujo OAuth2 Client Credentials para un geoportal público, gestionando el ciclo de vida de tokens y estrategias de compartición de servicios.',
@@ -109,7 +109,7 @@ const EXPERIENCE = [
         'Lideré capacitaciones internas en herramientas SIG, diseñando planes de aprendizaje adaptados al nivel técnico de cada equipo.'
       ]
     },
-    company: 'HYG Consultores S.A.S. — Grupo SURA · Medellín, Colombia'
+    company: 'HYG Consultores S.A.S. — Infraestructura Geoportal Geosura · Medellín, Colombia'
   },
   {
     date: '2019 – 2021',
