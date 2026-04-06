@@ -131,24 +131,6 @@ const EXPERIENCE = [
     },
     company: 'LINTEK S.A.S. · Colombia'
   },
-  {
-    date: '2016 – 2018',
-    en: {
-      role: 'GIS Data Technician — Geology Department',
-      bullets: [
-        'Evolved from data entry functions toward technical management of critical mining information: interpretation, loading, and integrity assurance of geological data in exploratory processes.',
-        'Executed cartographic digitization and spatial data modelling using ArcGIS and AutoCAD, facilitating strategic information visualization for mining operations.'
-      ]
-    },
-    es: {
-      role: 'Técnico de Datos SIG — Departamento de Geología',
-      bullets: [
-        'Evolucioné de funciones de digitación hacia la gestión técnica de información minera crítica: interpretación, carga e integridad de datos geológicos en procesos exploratorios.',
-        'Ejecuté labores de digitalización cartográfica y modelado de datos espaciales con ArcGIS y AutoCAD, facilitando la visualización de información estratégica para operaciones mineras.'
-      ]
-    },
-    company: 'Red Eagle Mining S.A.S. · Colombia'
-  }
 ];
 
 // ── EDUCATION ────────────────────────────────────────────────
