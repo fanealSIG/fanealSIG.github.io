@@ -2,7 +2,7 @@
 //  MAIN.JS — Rendering & Interactions
 // ═══════════════════════════════════════════════════════════
 
-let currentLang = localStorage.getItem('pref-lang') || 'en';
+let currentLang = localStorage.getItem('pref-lang') || 'es';
 
 // ── NAV ──────────────────────────────────────────────────────
 function buildNav() {
