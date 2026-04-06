@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post — Fabio Neira Alzate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../">fn.gis</a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">
+      <span data-lang="es">← Blog</span>
+      <span data-lang="en">← Blog</span>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btnEn">EN</button>
+      <button class="lang-btn" id="btnEs">ES</button>
+    </div>
+  </div>
+</nav>
+
+<div class="post-hero" id="postHero">
+  <div class="post-meta" id="postMeta"></div>
+  <h1 id="postTitle"></h1>
+</div>
+
+<article class="post-body" id="postBody">
+  <p class="blog-loading">Cargando entrada...</p>
+</article>
+
+<footer>
+  <span>Fabio Neira Alzate · GIS Infrastructure Specialist · Medellín, Colombia</span>
+  <span class="footer-built">
+    <span data-lang="en">Built with ♥ · Hosted on GitHub Pages</span>
+    <span data-lang="es">Hecho con ♥ · Alojado en GitHub Pages</span>
+  </span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+  let lang = localStorage.getItem('pref-lang') || 'es';
+  const params = new URLSearchParams(window.location.search);
+  const slug   = params.get('slug');
+
+  function applyLang() {
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('on', el.dataset.lang === lang);
+    });
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    document.getElementById('btnEs').classList.toggle('active', lang === 'es');
+    document.documentElement.lang = lang;
+  }
+
+  document.getElementById('btnEn').addEventListener('click', () => {
+    lang = 'en'; localStorage.setItem('pref-lang', lang); applyLang();
+  });
+  document.getElementById('btnEs').addEventListener('click', () => {
+    lang = 'es'; localStorage.setItem('pref-lang', lang); applyLang();
+  });
+
+  function renderNotFound() {
+    document.getElementById('postBody').innerHTML = `
+      <div class="post-not-found">
+        <p>Entrada no encontrada. <a href="index.html">← Volver al blog</a></p>
+      </div>`;
+  }
+
+  if (!slug) {
+    renderNotFound();
+  } else {
+    fetch('posts.json')
+      .then(r => r.json())
+      .then(posts => {
+        const meta = posts.find(p => p.slug === slug);
+        if (!meta) { renderNotFound(); return; }
+
+        // Update page title
+        document.title = `${meta.title[lang]} — Fabio Neira Alzate`;
+
+        // Render hero
+        document.getElementById('postMeta').innerHTML =
+          `<span class="blog-card-date post-date">${meta.date}</span>
+           ${meta.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}`;
+        document.getElementById('postTitle').textContent = meta.title[lang];
+
+        // Fetch and render markdown
+        return fetch(`posts/${slug}.md`);
+      })
+      .then(r => { if (!r || !r.ok) throw new Error(); return r.text(); })
+      .then(md => {
+        marked.setOptions({ breaks: true, gfm: true });
+        document.getElementById('postBody').innerHTML = marked.parse(md);
+        document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+        applyLang();
+      })
+      .catch(renderNotFound);
+  }
+
+  applyLang();
+</script>
+</body>
+</html>

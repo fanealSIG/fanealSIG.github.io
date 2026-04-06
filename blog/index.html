@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog de Fabio Neira Alzate — Bitácoras sobre SIG, Python, ArcGIS Enterprise y geoespacial." />
+  <title>Blog — Fabio Neira Alzate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../">fn.gis</a>
+  <div class="nav-right">
+    <a href="../" class="nav-back">
+      <span data-lang="es">← Portafolio</span>
+      <span data-lang="en">← Portfolio</span>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btnEn">EN</button>
+      <button class="lang-btn" id="btnEs">ES</button>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-hero">
+  <p class="section-tag">// <span data-lang="es">Bitácora</span><span data-lang="en">Blog</span></p>
+  <h1 class="section-title">
+    <span data-lang="es">Conocimiento <span class="accent">Compartido</span></span>
+    <span data-lang="en">Shared <span class="accent">Knowledge</span></span>
+  </h1>
+  <p class="blog-hero-sub">
+    <span data-lang="es">Tutoriales, notas técnicas y reflexiones sobre SIG, Python y geoespacial.</span>
+    <span data-lang="en">Tutorials, technical notes and reflections on GIS, Python and geospatial.</span>
+  </p>
+</div>
+
+<div class="blog-grid-section">
+  <div class="blog-grid" id="blogGrid">
+    <p class="blog-loading">Cargando...</p>
+  </div>
+</div>
+
+<footer>
+  <span>Fabio Neira Alzate · GIS Infrastructure Specialist · Medellín, Colombia</span>
+  <span class="footer-built">
+    <span data-lang="en">Built with ♥ · Hosted on GitHub Pages</span>
+    <span data-lang="es">Hecho con ♥ · Alojado en GitHub Pages</span>
+  </span>
+</footer>
+
+<script>
+  let lang = localStorage.getItem('pref-lang') || 'es';
+
+  function applyLang() {
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('on', el.dataset.lang === lang);
+    });
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    document.getElementById('btnEs').classList.toggle('active', lang === 'es');
+    document.documentElement.lang = lang;
+  }
+
+  document.getElementById('btnEn').addEventListener('click', () => {
+    lang = 'en'; localStorage.setItem('pref-lang', lang); applyLang(); renderGrid();
+  });
+  document.getElementById('btnEs').addEventListener('click', () => {
+    lang = 'es'; localStorage.setItem('pref-lang', lang); applyLang(); renderGrid();
+  });
+
+  let posts = [];
+
+  function renderGrid() {
+    const grid = document.getElementById('blogGrid');
+    if (!posts.length) {
+      grid.innerHTML = `<p class="blog-empty">
+        <span data-lang="es">Aún no hay entradas publicadas.</span>
+        <span data-lang="en">No posts published yet.</span>
+      </p>`;
+      applyLang();
+      return;
+    }
+    grid.innerHTML = posts.map(p => `
+      <a class="blog-card" href="post.html?slug=${p.slug}">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">${p.date}</span>
+          ${p.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}
+        </div>
+        <h2 class="blog-card-title">${p.title[lang]}</h2>
+        <p class="blog-card-excerpt">${p.excerpt[lang]}</p>
+        <span class="blog-card-read">
+          <span data-lang="es">Leer entrada →</span>
+          <span data-lang="en">Read post →</span>
+        </span>
+      </a>`).join('');
+    applyLang();
+  }
+
+  fetch('posts.json')
+    .then(r => r.json())
+    .then(data => { posts = data; renderGrid(); })
+    .catch(() => { posts = []; renderGrid(); });
+
+  applyLang();
+</script>
+</body>
+</html>

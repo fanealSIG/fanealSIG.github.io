@@ -3,11 +3,11 @@
 // ═══════════════════════════════════════════════════════════
 
 const NAV_LABELS = {
-  en: ['Skills', 'Experience', 'Education', 'Certifications', 'Awards', 'Contact'],
-  es: ['Habilidades', 'Experiencia', 'Educación', 'Certificados', 'Reconocimientos', 'Contacto']
+  en: ['Skills', 'Experience', 'Education', 'Certifications', 'Awards', 'Contact', 'Blog'],
+  es: ['Habilidades', 'Experiencia', 'Educación', 'Certificados', 'Reconocimientos', 'Contacto', 'Blog']
 };
 
-const NAV_HREFS = ['#skills', '#experience', '#education', '#certifications', '#awards', '#contact'];
+const NAV_HREFS = ['#skills', '#experience', '#education', '#certifications', '#awards', '#contact', 'blog/'];
 
 // ── SKILLS ──────────────────────────────────────────────────
 const SKILLS = [

@@ -1,0 +1,15 @@
+[
+  {
+    "slug": "2026-04-06-automatizacion-publicacion-servicios-arcgis",
+    "date": "2026-04-06",
+    "title": {
+      "es": "Automatizando la publicación de servicios en ArcGIS Enterprise con Python",
+      "en": "Automating Service Publishing in ArcGIS Enterprise with Python"
+    },
+    "excerpt": {
+      "es": "Cómo reducir el tiempo de publicación de servicios web de 20 minutos a menos de 3, usando Python Toolboxes y ArcPy en un entorno ArcGIS Enterprise federado.",
+      "en": "How to reduce web service publishing time from 20 minutes to under 3, using Python Toolboxes and ArcPy in a federated ArcGIS Enterprise environment."
+    },
+    "tags": ["Python", "ArcPy", "ArcGIS Enterprise", "Automatización"]
+  }
+]
