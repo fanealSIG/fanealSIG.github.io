@@ -154,17 +154,14 @@ render();
 // ── CONTACT MAP ──────────────────────────────────────────────
 (function initContactMap() {
   const map = L.map('contactMap', {
-    center: [6.2442, -75.5812],
-    zoom: 12,
+    center: [10, -30],
+    zoom: 2,
     zoomControl: true,
     scrollWheelZoom: false,
     attributionControl: false
   });
 
   const baseLayers = {
-    '🌊 Dark Blue': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_matter/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd', maxZoom: 19
-    }),
     '🛰️ Satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 19
     }),
@@ -176,7 +173,7 @@ render();
     })
   };
 
-  baseLayers['🌊 Dark Blue'].addTo(map);
+  baseLayers['🛰️ Satellite'].addTo(map);
   L.control.layers(baseLayers, null, { position: 'topright', collapsed: false }).addTo(map);
 
   L.marker([6.2442, -75.5812], {
