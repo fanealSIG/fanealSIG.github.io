@@ -1,0 +1,13 @@
+# Stray folder created by bad shell glob expansion
+{css,js,assets}/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

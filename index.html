@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fabio Neira Alzate — GIS Infrastructure Specialist & Environmental Engineer. ArcGIS Enterprise, Python, Web GIS, Remote Sensing." />
+  <title>Fabio Neira Alzate — GIS Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">fn.gis</div>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks"></ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEn">EN</button>
+      <button class="lang-btn"        id="btnEs">ES</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <ul id="mobileNavLinks"></ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-tag">
+      <span data-lang="en">Available for new opportunities</span>
+      <span data-lang="es">Disponible para nuevas oportunidades</span>
+    </div>
+    <h1 class="hero-name">Fabio<br><em>Neira</em> Alzate</h1>
+    <p class="hero-title">
+      <span data-lang="en">GIS Infrastructure Specialist &amp; Environmental Engineer</span>
+      <span data-lang="es">Especialista en Infraestructura SIG e Ingeniero Ambiental</span>
+    </p>
+    <p class="hero-desc">
+      <span data-lang="en">I build, support, and automate geospatial infrastructure — from ArcGIS Enterprise administration to Python-driven service publishing and open-source Web GIS. Based in Medellín, working across Latin America.</span>
+      <span data-lang="es">Construyo, soporto y automatizo infraestructura geoespacial — desde la administración de ArcGIS Enterprise hasta la publicación de servicios con Python y plataformas Web GIS. Basado en Medellín, trabajando en toda Latinoamérica.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">
+        <span data-lang="en">View Experience</span><span data-lang="es">Ver Experiencia</span>
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <span data-lang="en">Get in Touch</span><span data-lang="es">Contáctame</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label"><span data-lang="en">Years in GIS Infrastructure &amp; Analysis</span><span data-lang="es">Años en infraestructura y análisis SIG</span></div></div>
+    <div class="stat-card"><div class="stat-num">~60%</div><div class="stat-label"><span data-lang="en">Reduction in service publishing time via Python automation</span><span data-lang="es">Reducción en tiempo de publicación con automatización Python</span></div></div>
+    <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label"><span data-lang="en">Business units supported across Grupo SURA</span><span data-lang="es">Unidades de negocio apoyadas en Grupo SURA</span></div></div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-tag"><span data-lang="en">// Technical Stack</span><span data-lang="es">// Stack Técnico</span></p>
+  <h2 class="section-title"><span data-lang="en">Core <span class="accent">Competencies</span></span><span data-lang="es">Competencias <span class="accent">Clave</span></span></h2>
+  <div class="skills-grid" id="skillsGrid"></div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-tag"><span data-lang="en">// Career Path</span><span data-lang="es">// Trayectoria</span></p>
+  <h2 class="section-title"><span data-lang="en">Work <span class="accent">Experience</span></span><span data-lang="es">Experiencia <span class="accent">Profesional</span></span></h2>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-tag"><span data-lang="en">// Academic Background</span><span data-lang="es">// Formación Académica</span></p>
+  <h2 class="section-title"><span data-lang="en">Education</span><span data-lang="es">Educación</span></h2>
+  <div class="edu-grid" id="eduGrid"></div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-tag"><span data-lang="en">// Credentials</span><span data-lang="es">// Credenciales</span></p>
+  <h2 class="section-title"><span data-lang="en">Certifications &amp; <span class="accent">Diplomas</span></span><span data-lang="es">Certificados y <span class="accent">Diplomados</span></span></h2>
+  <div class="certs-grid" id="certsGrid"></div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <p class="section-tag"><span data-lang="en">// Recognition</span><span data-lang="es">// Reconocimientos</span></p>
+  <h2 class="section-title"><span data-lang="en">Awards &amp; <span class="accent">Distinctions</span></span><span data-lang="es">Premios y <span class="accent">Distinciones</span></span></h2>
+  <div class="awards-list" id="awardsList"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-tag"><span data-lang="en">// Let's connect</span><span data-lang="es">// Conectemos</span></p>
+  <h2 class="section-title"><span data-lang="en">Get in <span class="accent">Touch</span></span><span data-lang="es">Ponte en <span class="accent">Contacto</span></span></h2>
+  <p class="contact-sub">
+    <span data-lang="en">Open to GIS infrastructure roles, platform support positions, and geospatial consulting projects in Latin America and beyond.</span>
+    <span data-lang="es">Abierto a roles de infraestructura SIG, soporte de plataformas y proyectos de consultoría geoespacial en Latinoamérica y más allá.</span>
+  </p>
+  <div class="contact-links">
+    <a href="mailto:faneal14@gmail.com"                      class="contact-chip">✉️ faneal14@gmail.com</a>
+    <a href="tel:+573232916732"                              class="contact-chip">📞 +57 323 291 6732</a>
+    <a href="https://linkedin.com/in/faneal" target="_blank" class="contact-chip">💼 linkedin.com/in/faneal</a>
+    <span class="contact-chip">📍 Medellín, Colombia</span>
+  </div>
+</section>
+
+<footer>
+  <span>Fabio Neira Alzate · GIS Infrastructure Specialist · Medellín, Colombia</span>
+  <span class="footer-built"><span data-lang="en">Built with ♥ · Hosted on GitHub Pages</span><span data-lang="es">Hecho con ♥ · Alojado en GitHub Pages</span></span>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
