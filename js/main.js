@@ -162,8 +162,8 @@ render();
   });
 
   const baseLayers = {
-    '⬜ Gray Canvas': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 16
+    '🌊 Dark Blue': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_matter/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd', maxZoom: 19
     }),
     '🛰️ Satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 19
@@ -176,7 +176,7 @@ render();
     })
   };
 
-  baseLayers['⬜ Gray Canvas'].addTo(map);
+  baseLayers['🌊 Dark Blue'].addTo(map);
   L.control.layers(baseLayers, null, { position: 'topright', collapsed: false }).addTo(map);
 
   L.marker([6.2442, -75.5812], {
