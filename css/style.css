@@ -196,6 +196,37 @@ section { padding: 6rem 4rem; }
   border: 1px solid rgba(20,184,166,.3);
   box-shadow: 0 20px 60px rgba(0,0,0,.5);
 }
+.leaflet-control-layers {
+  background: rgba(15,32,68,.92) !important;
+  border: 1px solid rgba(20,184,166,.3) !important;
+  border-radius: 6px !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.4) !important;
+}
+.leaflet-control-layers-list {
+  padding: .4rem .2rem !important;
+}
+.leaflet-control-layers label {
+  color: rgba(255,255,255,.75) !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: .65rem !important;
+  letter-spacing: .05em;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .25rem .5rem;
+  cursor: pointer;
+  transition: color .2s;
+}
+.leaflet-control-layers label:hover { color: #14b8a6 !important; }
+.leaflet-control-layers input[type=radio] { accent-color: #14b8a6; }
+.leaflet-control-zoom a {
+  background: rgba(15,32,68,.92) !important;
+  border-color: rgba(20,184,166,.3) !important;
+  color: rgba(255,255,255,.8) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: rgba(13,148,136,.3) !important;
+  color: #fff !important;
+}
 .leaflet-tooltip.map-tip {
   background: rgba(15,32,68,.9); border: 1px solid rgba(20,184,166,.4);
   color: #14b8a6; font-family: 'Space Mono', monospace; font-size: .62rem;
