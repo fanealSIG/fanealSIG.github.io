@@ -165,12 +165,6 @@ const EDUCATION = [
     es: { degree: 'Ingeniería Ambiental', note: 'Estudios complementarios en modelación, geomática, gestión del riesgo, planificación de recursos hídricos y auditoría ambiental.' },
     institution: 'Universidad de Antioquia'
   },
-  {
-    year: { en: '2011', es: '2011' },
-    en: { degree: 'Telecommunications Technology', note: 'Technical foundation in telecommunications systems and infrastructure.' },
-    es: { degree: 'Tecnología en Telecomunicaciones', note: 'Base técnica en sistemas e infraestructura de telecomunicaciones.' },
-    institution: 'Instituto Tecnológico Metropolitano (ITM)'
-  }
 ];
 
 // ── CERTIFICATIONS ───────────────────────────────────────────
