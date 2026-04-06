@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -110,6 +111,13 @@
     <a href="https://linkedin.com/in/faneal" target="_blank" class="contact-chip">💼 linkedin.com/in/faneal</a>
     <span class="contact-chip">📍 Medellín, Colombia</span>
   </div>
+  <div class="map-outer">
+    <div class="map-wrap" id="contactMap"></div>
+    <div class="map-legend">
+      <span class="map-legend-item map-legend-valle">Valle de Aburrá</span>
+      <span class="map-legend-item map-legend-oriente">Oriente Antioqueño</span>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -117,6 +125,7 @@
   <span class="footer-built"><span data-lang="en">Built with ♥ · Hosted on GitHub Pages</span><span data-lang="es">Hecho con ♥ · Alojado en GitHub Pages</span></span>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 </body>

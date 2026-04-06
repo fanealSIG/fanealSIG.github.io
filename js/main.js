@@ -150,3 +150,76 @@ document.getElementById('hamburger').addEventListener('click', () => {
 
 // ── INIT ─────────────────────────────────────────────────────
 render();
+
+// ── CONTACT MAP ──────────────────────────────────────────────
+(function initContactMap() {
+  const map = L.map('contactMap', {
+    center: [6.18, -75.12],
+    zoom: 9,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    dragging: false,
+    touchZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    attributionControl: false
+  });
+
+  // Satellite base (ESRI World Imagery)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 17
+  }).addTo(map);
+
+  // Dark labels overlay (CartoDB)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd', maxZoom: 17
+  }).addTo(map);
+
+  // Valle de Aburrá polygon
+  L.geoJSON({
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [[
+        [-75.618, 6.439], [-75.565, 6.432], [-75.505, 6.395],
+        [-75.462, 6.338], [-75.468, 6.273], [-75.487, 6.206],
+        [-75.512, 6.148], [-75.550, 6.072], [-75.590, 6.052],
+        [-75.628, 6.072], [-75.668, 6.108], [-75.688, 6.170],
+        [-75.673, 6.250], [-75.648, 6.335], [-75.635, 6.408],
+        [-75.618, 6.439]
+      ]]
+    }
+  }, {
+    style: { color: '#14b8a6', weight: 2, fillColor: '#0d9488', fillOpacity: 0.28 }
+  }).addTo(map)
+    .bindTooltip('Valle de Aburrá', { permanent: true, direction: 'center', className: 'map-tip' });
+
+  // Oriente Antioqueño polygon
+  L.geoJSON({
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [[
+        [-75.420, 6.415], [-75.355, 6.582], [-75.120, 6.805],
+        [-74.780, 6.852], [-74.420, 6.738], [-74.295, 6.548],
+        [-74.305, 6.250], [-74.328, 5.952], [-74.412, 5.718],
+        [-74.668, 5.518], [-74.922, 5.478], [-75.182, 5.598],
+        [-75.365, 5.812], [-75.415, 6.062], [-75.420, 6.415]
+      ]]
+    }
+  }, {
+    style: { color: '#818cf8', weight: 1.5, fillColor: '#6366f1', fillOpacity: 0.15 }
+  }).addTo(map)
+    .bindTooltip('Oriente Antioqueño', { permanent: true, direction: 'center', className: 'map-tip' });
+
+  // Medellín marker
+  L.marker([6.2442, -75.5812], {
+    icon: L.divIcon({
+      className: '',
+      html: '<div style="width:10px;height:10px;background:#14b8a6;border-radius:50%;border:2px solid #fff;box-shadow:0 0 10px rgba(20,184,166,.9)"></div>',
+      iconSize: [10, 10], iconAnchor: [5, 5]
+    })
+  }).addTo(map)
+    .bindTooltip('Medellín', { permanent: true, direction: 'top', className: 'map-tip', offset: [0, -6] });
+})();
