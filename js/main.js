@@ -161,11 +161,8 @@ render();
     attributionControl: false
   });
 
-  const tilePane = map.getPane('tilePane');
-  const NEON_FILTER = 'brightness(0.85) hue-rotate(148deg) saturate(2.2) contrast(1.05)';
-
   const baseLayers = {
-    '🌑 Dark Neon': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    '⬜ Gray Canvas': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 16
     }),
     '🛰️ Satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -173,16 +170,13 @@ render();
     }),
     '🗺️ Streets': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       subdomains: 'abc', maxZoom: 19
+    }),
+    '🧭 Topo': L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      subdomains: 'abc', maxZoom: 17
     })
   };
 
-  baseLayers['🌑 Dark Neon'].addTo(map);
-  tilePane.style.filter = NEON_FILTER;
-
-  map.on('baselayerchange', (e) => {
-    tilePane.style.filter = e.name === '🌑 Dark Neon' ? NEON_FILTER : '';
-  });
-
+  baseLayers['⬜ Gray Canvas'].addTo(map);
   L.control.layers(baseLayers, null, { position: 'topright', collapsed: false }).addTo(map);
 
   L.marker([6.2442, -75.5812], {
