@@ -241,10 +241,52 @@ const CERT_GROUPS = [
         es: { name: 'ArcGIS Dashboard: Cree Potentes Tableros de Control', issuer: 'Esri Colombia · ID 8941', note: 'Diseño e implementación de tableros operacionales con ArcGIS para visualización de datos en tiempo real.' }
       },
       {
+        icon: '📂',
+        year: { en: 'Aug 2022', es: 'Ago 2022' },
+        en: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Management, organization and quality control of geospatial data within the ArcGIS platform.' },
+        es: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Gestión, organización y control de calidad de datos geoespaciales dentro de la plataforma ArcGIS.' }
+      },
+      {
+        icon: '🔀',
+        year: { en: 'Sep 2022', es: 'Sep 2022' },
+        en: { name: 'Configuring Branch Versioning in ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuration and management of branch versioning for collaborative and enterprise GIS data workflows.' },
+        es: { name: 'Configuración del Control de Versiones Branch en ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuración y gestión del versionamiento Branch para flujos de trabajo colaborativos y empresariales en SIG.' }
+      },
+      {
+        icon: '📡',
+        year: { en: 'Oct 2023', es: 'Oct 2023' },
+        en: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on advanced spatial statistics, machine learning, and data-driven decision-making using the ArcGIS platform.' },
+        es: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre estadística espacial avanzada, machine learning y toma de decisiones basada en datos con la plataforma ArcGIS.' }
+      },
+      {
+        icon: '🛰️',
+        year: { en: 'Oct 2023', es: 'Oct 2023' },
+        en: { name: 'Imagery in Action', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on satellite imagery analysis, remote sensing workflows, and image processing with ArcGIS.' },
+        es: { name: 'Imagery in Action', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre análisis de imágenes satelitales, flujos de teledetección y procesamiento de imágenes con ArcGIS.' }
+      },
+      {
         icon: '🗺️',
         year: { en: 'May 2017', es: 'May 2017' },
         en: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Foundational ArcGIS Desktop certification covering cartographic production and spatial analysis.' },
         es: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Certificación fundacional de ArcGIS Desktop cubriendo producción cartográfica y análisis espacial.' }
+      }
+    ]
+  },
+  {
+    en: { group: 'Environmental GIS & Risk Management' },
+    es: { group: 'SIG Ambiental y Gestión de Riesgos' },
+    items: [
+      {
+        icon: '🌊',
+        year: { en: 'Apr 2018', es: 'Abr 2018' },
+        en: { name: 'Remote Sensing & GIS for Flood Risk Management', issuer: 'Universidad de Antioquia — Faculty of Engineering', note: '32-hour course on satellite remote sensing and GIS applied to flood risk analysis and disaster management. Issued by the Dean of Engineering.' },
+        es: { name: 'Sensores Remotos y SIG para Manejo y Gestión de Riesgos en Inundaciones', issuer: 'Universidad de Antioquia — Facultad de Ingeniería', note: 'Curso de 32 horas sobre teledetección satelital y SIG aplicados al análisis de riesgo de inundaciones y gestión de desastres. Emitido por el Decano de Ingeniería.' }
+      },
+      {
+        icon: '🗃️',
+        year: { en: 'Dec 2022', es: 'Dic 2022' },
+        en: { name: 'Geodatabase (GDB) — ANLA Standards', issuer: 'FG Training Colombia SAS', note: '40-hour course on the geodatabase model required by the Autoridad Nacional de Licencias Ambientales (ANLA) for environmental licensing projects in Colombia.' },
+        es: { name: 'Geodatabase (GDB) de la Autoridad Nacional de Licencias Ambientales (ANLA)', issuer: 'FG Training Colombia SAS', note: 'Curso de 40 horas sobre el modelo de geodatabase exigido por la ANLA para proyectos de licenciamiento ambiental en Colombia.' }
       }
     ]
   },
