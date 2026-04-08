@@ -157,12 +157,6 @@ const CERT_GROUPS = [
     es: { group: 'IA y Tecnologías Emergentes' },
     items: [
       {
-        icon: '🤖',
-        year: { en: 'In progress · 2025', es: 'En curso · 2025' },
-        en: { name: 'AI Agents in Geospatial Projects', issuer: 'Claude (Anthropic) · Google AI', note: 'Hands-on training in designing and integrating AI agents into GIS solutions: workflow automation, AI-augmented spatial analysis, and building GIS tools powered by LLMs.' },
-        es: { name: 'Agentes IA en Proyectos Geoespaciales', issuer: 'Claude (Anthropic) · Google AI', note: 'Formación práctica en agentes IA en soluciones SIG: automatización de flujos, análisis geoespacial aumentado y construcción de herramientas con LLMs.' }
-      },
-      {
         icon: '✨',
         year: { en: 'Jun 2025', es: 'Jun 2025' },
         en: { name: 'Generative AI Diploma', issuer: 'Eidos Global + Microsoft', note: 'Foundations and practical applications of generative artificial intelligence in professional environments.' },
