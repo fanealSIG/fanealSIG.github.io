@@ -251,8 +251,43 @@ section { padding: 6rem 4rem; }
 }
 .leaflet-tooltip.map-tip::before { display: none; }
 
+/* ── CERT SHOW MORE ────────────────────────────────────────── */
+.cert-hidden { display: none !important; }
+.cert-show-btn {
+  display: inline-block; margin-top: 1rem;
+  font-family: 'Space Mono', monospace; font-size: .72rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--teal); background: transparent;
+  border: 1px solid rgba(13,148,136,.35); border-radius: 3px;
+  padding: .4rem 1.1rem; cursor: pointer; transition: all .2s;
+}
+.cert-show-btn:hover { background: rgba(13,148,136,.08); border-color: var(--teal); }
+
+/* ── CONTACT FORM ──────────────────────────────────────────── */
+.contact-form {
+  max-width: 620px; margin: 2.5rem auto 0;
+  display: flex; flex-direction: column; gap: 1.2rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; text-align: left; }
+.form-group label { font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.5); letter-spacing: .05em; text-transform: uppercase; font-family: 'Space Mono', monospace; }
+.form-group input,
+.form-group textarea {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px; padding: .75rem 1rem; color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-size: .9rem;
+  transition: border-color .2s; resize: vertical;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(255,255,255,.25); }
+.form-group input:focus,
+.form-group textarea:focus { outline: none; border-color: var(--teal2); background: rgba(255,255,255,.09); }
+.form-submit { align-self: flex-start; margin-top: .4rem; }
+
 /* ── FOOTER ────────────────────────────────────────────────── */
 footer { background: #0a1a36; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; font-size: .75rem; color: rgba(255,255,255,.25); font-family: 'Space Mono', monospace; flex-wrap: wrap; gap: .5rem; }
+.footer-blog-link { color: rgba(255,255,255,.35); text-decoration: none; font-size: .75rem; transition: color .2s; }
+.footer-blog-link:hover { color: var(--teal2); }
 
 /* ── RESPONSIVE ────────────────────────────────────────────── */
 @media (max-width: 900px) {
@@ -272,4 +307,6 @@ footer { background: #0a1a36; display: flex; justify-content: space-between; ali
   .hero-name { font-size: 2.4rem; }
   .section-title { font-size: 1.8rem; }
   .map-wrap { height: 260px; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-submit { align-self: stretch; text-align: center; }
 }

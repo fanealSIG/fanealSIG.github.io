@@ -3,11 +3,11 @@
 // ═══════════════════════════════════════════════════════════
 
 const NAV_LABELS = {
-  en: ['Skills', 'Experience', 'Education', 'Certifications', 'Awards', 'Contact', 'Blog'],
-  es: ['Habilidades', 'Experiencia', 'Educación', 'Certificados', 'Reconocimientos', 'Contacto', 'Blog']
+  en: ['Skills', 'Experience', 'Education', 'Certifications', 'Awards', 'Contact'],
+  es: ['Habilidades', 'Experiencia', 'Educación', 'Certificados', 'Reconocimientos', 'Contacto']
 };
 
-const NAV_HREFS = ['#skills', '#experience', '#education', '#certifications', '#awards', '#contact', 'blog/'];
+const NAV_HREFS = ['#skills', '#experience', '#education', '#certifications', '#awards', '#contact'];
 
 // ── SKILLS ──────────────────────────────────────────────────
 const SKILLS = [
@@ -153,6 +153,84 @@ const EDUCATION = [
 // Organized by category for rendering with group headers
 const CERT_GROUPS = [
   {
+    en: { group: 'ESRI / ArcGIS Platform' },
+    es: { group: 'Plataforma ESRI / ArcGIS' },
+    items: [
+      {
+        icon: '🏅',
+        year: { en: 'Oct 2022', es: 'Oct 2022' },
+        en: { name: 'ArcGIS Systems Administration Diploma', issuer: 'Esri Colombia · 180 hours', note: 'Full diploma covering Enterprise configuration, branch versioning, geodatabase replication, and multiuser workflows.' },
+        es: { name: 'Diplomado en Administración de Sistemas ArcGIS', issuer: 'Esri Colombia · 180 horas', note: 'Diplomado completo sobre configuración Enterprise, versionamiento Branch, replicación de geodatabases y flujos multiusuario.' }
+      },
+      {
+        icon: '⚙️',
+        year: { en: 'Apr 2024', es: 'Abr 2024' },
+        en: { name: 'ArcGIS Enterprise: Administration Workflows', issuer: 'Esri Colombia · ID 16261', note: 'Advanced enterprise GIS administration workflows, monitoring, and maintenance best practices.' },
+        es: { name: 'ArcGIS Enterprise: Administration Workflows', issuer: 'Esri Colombia · ID 16261', note: 'Flujos de trabajo avanzados de administración de Enterprise GIS, monitoreo y mejores prácticas de mantenimiento.' }
+      },
+      {
+        icon: '🖥️',
+        year: { en: 'Aug 2022', es: 'Ago 2022' },
+        en: { name: 'ArcGIS Enterprise: Configuring a Base Deployment', issuer: 'Esri Colombia · ID 8902', note: 'Configuration of a base ArcGIS Enterprise deployment including Portal, Server, and Data Store.' },
+        es: { name: 'ArcGIS Enterprise: Configuring a Base Deployment', issuer: 'Esri Colombia · ID 8902', note: 'Configuración de un despliegue base de ArcGIS Enterprise incluyendo Portal, Server y Data Store.' }
+      },
+      {
+        icon: '🗄️',
+        year: { en: 'Aug 2022', es: 'Ago 2022' },
+        en: { name: 'Deploying and Maintaining a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8736', note: 'Deployment, configuration and maintenance of enterprise geodatabases in multiuser environments.' },
+        es: { name: 'Deploying and Maintaining a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8736', note: 'Despliegue, configuración y mantenimiento de geodatabases empresariales en entornos multiusuario.' }
+      },
+      {
+        icon: '📋',
+        year: { en: 'Sep 2022', es: 'Sep 2022' },
+        en: { name: 'Implementing Versioned Workflows in a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8752', note: 'Implementation of versioned editing workflows for collaborative GIS data management.' },
+        es: { name: 'Implementing Versioned Workflows in a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8752', note: 'Implementación de flujos de edición versionada para gestión colaborativa de datos SIG.' }
+      },
+      {
+        icon: '🔄',
+        year: { en: 'Sep 2022', es: 'Sep 2022' },
+        en: { name: 'Distributing Data Using Geodatabase Replication', issuer: 'Esri Colombia · ID 8750', note: 'Strategies and implementation of geodatabase replication for distributed data management.' },
+        es: { name: 'Distributing Data Using Geodatabase Replication', issuer: 'Esri Colombia · ID 8750', note: 'Estrategias e implementación de replicación de geodatabases para gestión distribuida de datos.' }
+      },
+      {
+        icon: '📡',
+        year: { en: 'Oct 2023', es: 'Oct 2023' },
+        en: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on advanced spatial statistics, machine learning, and data-driven decision-making using the ArcGIS platform.' },
+        es: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre estadística espacial avanzada, machine learning y toma de decisiones basada en datos con la plataforma ArcGIS.' }
+      },
+      {
+        icon: '🛰️',
+        year: { en: 'Oct 2023', es: 'Oct 2023' },
+        en: { name: 'Imagery in Action', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on satellite imagery analysis, remote sensing workflows, and image processing with ArcGIS.' },
+        es: { name: 'Imagery in Action', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre análisis de imágenes satelitales, flujos de teledetección y procesamiento de imágenes con ArcGIS.' }
+      },
+      {
+        icon: '📊',
+        year: { en: 'Sep 2022', es: 'Sep 2022' },
+        en: { name: 'ArcGIS Dashboards: Create Powerful Dashboards', issuer: 'Esri Colombia · ID 8941', note: 'Design and implementation of powerful operational dashboards with ArcGIS for real-time data visualization.' },
+        es: { name: 'ArcGIS Dashboard: Cree Potentes Tableros de Control', issuer: 'Esri Colombia · ID 8941', note: 'Diseño e implementación de tableros operacionales con ArcGIS para visualización de datos en tiempo real.' }
+      },
+      {
+        icon: '📂',
+        year: { en: 'Aug 2022', es: 'Ago 2022' },
+        en: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Management, organization and quality control of geospatial data within the ArcGIS platform.' },
+        es: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Gestión, organización y control de calidad de datos geoespaciales dentro de la plataforma ArcGIS.' }
+      },
+      {
+        icon: '🔀',
+        year: { en: 'Sep 2022', es: 'Sep 2022' },
+        en: { name: 'Configuring Branch Versioning in ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuration and management of branch versioning for collaborative and enterprise GIS data workflows.' },
+        es: { name: 'Configuración del Control de Versiones Branch en ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuración y gestión del versionamiento Branch para flujos de trabajo colaborativos y empresariales en SIG.' }
+      },
+      {
+        icon: '🗺️',
+        year: { en: 'May 2017', es: 'May 2017' },
+        en: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Foundational ArcGIS Desktop certification covering cartographic production and spatial analysis.' },
+        es: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Certificación fundacional de ArcGIS Desktop cubriendo producción cartográfica y análisis espacial.' }
+      }
+    ]
+  },
+  {
     en: { group: 'AI & Emerging Technologies' },
     es: { group: 'IA y Tecnologías Emergentes' },
     items: [
@@ -185,84 +263,6 @@ const CERT_GROUPS = [
         year: { en: 'Sep 2022', es: 'Sep 2022' },
         en: { name: 'Data Science in Python & ArcGIS Pro', issuer: 'Esri Colombia', note: 'Applied data science workflows using Python integrated with ArcGIS Pro for geospatial analysis.' },
         es: { name: 'Ciencia de Datos en Python y ArcGIS Pro', issuer: 'Esri Colombia', note: 'Flujos de trabajo de ciencia de datos con Python integrado a ArcGIS Pro para análisis geoespacial.' }
-      }
-    ]
-  },
-  {
-    en: { group: 'ESRI / ArcGIS Platform' },
-    es: { group: 'Plataforma ESRI / ArcGIS' },
-    items: [
-      {
-        icon: '🏅',
-        year: { en: 'Oct 2022', es: 'Oct 2022' },
-        en: { name: 'ArcGIS Systems Administration Diploma', issuer: 'Esri Colombia', note: 'Full diploma covering Enterprise configuration, branch versioning, geodatabase replication, and multiuser workflows.' },
-        es: { name: 'Diplomado en Administración de Sistemas ArcGIS', issuer: 'Esri Colombia', note: 'Diplomado completo sobre configuración Enterprise, versionamiento Branch, replicación de geodatabases y flujos multiusuario.' }
-      },
-      {
-        icon: '⚙️',
-        year: { en: 'Apr 2024', es: 'Abr 2024' },
-        en: { name: 'ArcGIS Enterprise: Administration Workflows', issuer: 'Esri Colombia · ID 16261', note: 'Advanced enterprise GIS administration workflows, monitoring, and maintenance best practices.' },
-        es: { name: 'ArcGIS Enterprise: Administration Workflows', issuer: 'Esri Colombia · ID 16261', note: 'Flujos de trabajo avanzados de administración de Enterprise GIS, monitoreo y mejores prácticas de mantenimiento.' }
-      },
-      {
-        icon: '🖥️',
-        year: { en: 'Aug 2022', es: 'Ago 2022' },
-        en: { name: 'ArcGIS Enterprise: Configuring a Base Deployment', issuer: 'Esri Colombia · ID 8902', note: 'Configuration of a base ArcGIS Enterprise deployment including Portal, Server, and Data Store.' },
-        es: { name: 'ArcGIS Enterprise: Configuring a Base Deployment', issuer: 'Esri Colombia · ID 8902', note: 'Configuración de un despliegue base de ArcGIS Enterprise incluyendo Portal, Server y Data Store.' }
-      },
-      {
-        icon: '🗄️',
-        year: { en: 'Aug 2022', es: 'Ago 2022' },
-        en: { name: 'Deploying and Maintaining a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8736', note: 'Deployment, configuration and maintenance of enterprise geodatabases in multiuser environments.' },
-        es: { name: 'Deploying and Maintaining a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8736', note: 'Despliegue, configuración y mantenimiento de geodatabases empresariales en entornos multiusuario.' }
-      },
-      {
-        icon: '🔄',
-        year: { en: 'Sep 2022', es: 'Sep 2022' },
-        en: { name: 'Distributing Data Using Geodatabase Replication', issuer: 'Esri Colombia · ID 8750', note: 'Strategies and implementation of geodatabase replication for distributed data management.' },
-        es: { name: 'Distributing Data Using Geodatabase Replication', issuer: 'Esri Colombia · ID 8750', note: 'Estrategias e implementación de replicación de geodatabases para gestión distribuida de datos.' }
-      },
-      {
-        icon: '📋',
-        year: { en: 'Sep 2022', es: 'Sep 2022' },
-        en: { name: 'Implemented Versioned Workflows in a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8752', note: 'Implementation of versioned editing workflows for collaborative GIS data management.' },
-        es: { name: 'Implemented Versioned Workflows in a Multiuser Geodatabase', issuer: 'Esri Colombia · ID 8752', note: 'Implementación de flujos de edición versionada para gestión colaborativa de datos SIG.' }
-      },
-      {
-        icon: '📊',
-        year: { en: 'Sep 2022', es: 'Sep 2022' },
-        en: { name: 'ArcGIS Dashboards: Create Powerful Dashboards', issuer: 'Esri Colombia · ID 8941', note: 'Design and implementation of powerful operational dashboards with ArcGIS for real-time data visualization.' },
-        es: { name: 'ArcGIS Dashboard: Cree Potentes Tableros de Control', issuer: 'Esri Colombia · ID 8941', note: 'Diseño e implementación de tableros operacionales con ArcGIS para visualización de datos en tiempo real.' }
-      },
-      {
-        icon: '📂',
-        year: { en: 'Aug 2022', es: 'Ago 2022' },
-        en: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Management, organization and quality control of geospatial data within the ArcGIS platform.' },
-        es: { name: 'Managing Geospatial Data in ArcGIS', issuer: 'Esri Colombia · ID 8739', note: 'Gestión, organización y control de calidad de datos geoespaciales dentro de la plataforma ArcGIS.' }
-      },
-      {
-        icon: '🔀',
-        year: { en: 'Sep 2022', es: 'Sep 2022' },
-        en: { name: 'Configuring Branch Versioning in ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuration and management of branch versioning for collaborative and enterprise GIS data workflows.' },
-        es: { name: 'Configuración del Control de Versiones Branch en ArcGIS', issuer: 'Esri Colombia · ID 8751', note: 'Configuración y gestión del versionamiento Branch para flujos de trabajo colaborativos y empresariales en SIG.' }
-      },
-      {
-        icon: '📡',
-        year: { en: 'Oct 2023', es: 'Oct 2023' },
-        en: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on advanced spatial statistics, machine learning, and data-driven decision-making using the ArcGIS platform.' },
-        es: { name: 'Spatial Data Science: The New Frontier in Analytics', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre estadística espacial avanzada, machine learning y toma de decisiones basada en datos con la plataforma ArcGIS.' }
-      },
-      {
-        icon: '🛰️',
-        year: { en: 'Oct 2023', es: 'Oct 2023' },
-        en: { name: 'Imagery in Action', issuer: 'Esri · Signed by Jack Dangermond', note: 'MOOC on satellite imagery analysis, remote sensing workflows, and image processing with ArcGIS.' },
-        es: { name: 'Imagery in Action', issuer: 'Esri · Firmado por Jack Dangermond', note: 'MOOC sobre análisis de imágenes satelitales, flujos de teledetección y procesamiento de imágenes con ArcGIS.' }
-      },
-      {
-        icon: '🗺️',
-        year: { en: 'May 2017', es: 'May 2017' },
-        en: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Foundational ArcGIS Desktop certification covering cartographic production and spatial analysis.' },
-        es: { name: 'Using ArcMap in ArcGIS Desktop 10', issuer: 'Esri', note: 'Certificación fundacional de ArcGIS Desktop cubriendo producción cartográfica y análisis espacial.' }
       }
     ]
   },

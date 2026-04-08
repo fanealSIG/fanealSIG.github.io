@@ -60,6 +60,8 @@ function buildEducation() {
 }
 
 // ── CERTIFICATIONS ───────────────────────────────────────────
+const CERTS_VISIBLE = 2; // cards shown per group before "show more"
+
 function buildCertifications() {
   const container = document.getElementById('certsGrid');
   container.innerHTML = CERT_GROUPS.map(group => `
@@ -76,6 +78,27 @@ function buildCertifications() {
           </div>`).join('')}
       </div>
     </div>`).join('');
+
+  // Collapse extras per group
+  document.querySelectorAll('.cert-group').forEach(group => {
+    const cards = group.querySelectorAll('.cert-card');
+    if (cards.length <= CERTS_VISIBLE) return;
+    const extra = cards.length - CERTS_VISIBLE;
+    cards.forEach((c, i) => { if (i >= CERTS_VISIBLE) c.classList.add('cert-hidden'); });
+    const btn = document.createElement('button');
+    btn.className = 'cert-show-btn';
+    btn.dataset.expanded = 'false';
+    btn.textContent = currentLang === 'es' ? `Ver ${extra} más` : `Show ${extra} more`;
+    btn.addEventListener('click', () => {
+      const expanded = btn.dataset.expanded === 'true';
+      cards.forEach((c, i) => { if (i >= CERTS_VISIBLE) c.classList.toggle('cert-hidden', expanded); });
+      btn.dataset.expanded = expanded ? 'false' : 'true';
+      btn.textContent = expanded
+        ? (currentLang === 'es' ? `Ver ${extra} más` : `Show ${extra} more`)
+        : (currentLang === 'es' ? 'Ver menos' : 'Show less');
+    });
+    group.appendChild(btn);
+  });
 }
 
 // ── AWARDS ───────────────────────────────────────────────────

@@ -140,6 +140,27 @@
     <a href="https://github.com/fanealSIG"     target="_blank" class="contact-chip">🐙 github.com/fanealSIG</a>
     <span class="contact-chip">📍 Medellín, Colombia</span>
   </div>
+  <!-- Contact form — replace YOUR_FORM_ID with your Formspree ID (formspree.io) -->
+  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name"><span data-lang="en">Name</span><span data-lang="es">Nombre</span></label>
+        <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="message"><span data-lang="en">Message</span><span data-lang="es">Mensaje</span></label>
+      <textarea id="message" name="message" rows="5" required placeholder="¿En qué puedo ayudarte?"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary form-submit">
+      <span data-lang="en">Send message</span><span data-lang="es">Enviar mensaje</span>
+    </button>
+  </form>
+
   <div class="map-outer">
     <div class="map-wrap" id="contactMap"></div>
   </div>
@@ -147,7 +168,7 @@
 
 <footer>
   <span>Fabio Neira Alzate · GIS Infrastructure Specialist · Medellín, Colombia</span>
-  <span class="footer-built"><span data-lang="en">Built with ♥ · Hosted on GitHub Pages</span><span data-lang="es">Hecho con ♥ · Alojado en GitHub Pages</span></span>
+  <a href="blog/" class="footer-blog-link"><span data-lang="en">📝 Blog</span><span data-lang="es">📝 Blog</span></a>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
