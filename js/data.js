@@ -88,28 +88,28 @@ const EXPERIENCE = [
     en: {
       role: 'GIS Infrastructure & Support Specialist',
       bullets: [
-        'Administer and maintain a federated ArcGIS Enterprise 11.x environment, ensuring continuous availability of web GIS services across 3+ business units of Geosura Geoportal.',
+        'Work at HYG Consultores S.A.S., a GIS consulting firm, providing transversal GIS support across projects for public and private sector clients including Municipio de Envigado, Municipio de Itagüí, Cornare, BanCO2, Corantioquia, Metro de Medellín, ISA, and ISAGEN.',
+        'Currently dedicated full-time to Geosura — a national geospatial platform — administering its federated ArcGIS Enterprise 11.x environment and ensuring continuous availability of web GIS services across 3+ business units.',
         'Automated the full service publishing lifecycle with Python Toolboxes (ArcPy), cutting deployment time by ~60% and eliminating manual errors.',
         'Diagnose and resolve incidents in corporate GIS infrastructure, coordinating with IT teams to maintain service continuity and data integrity.',
         'Implemented OAuth2 Client Credentials flow for a public-facing geoportal, managing token lifecycle and service-sharing strategies.',
         'Provide Level 2 technical support to GIS users across ArcGIS Pro, ArcGIS Online, and QGIS — configuration, service access, symbology, and performance.',
-        'Designed a corporate Web GIS methodology based on OGC standards (WMS/WFS/REST), integrating ESRI and open source platforms.',
-        'Led GIS training sessions for internal teams, designing learning plans adapted to each team\'s technical level.'
+        'Designed a corporate Web GIS methodology based on OGC standards (WMS/WFS/REST), integrating ESRI and open source platforms.'
       ]
     },
     es: {
       role: 'Especialista SIG — Soporte e Infraestructura',
       bullets: [
-        'Administro y mantengo el entorno ArcGIS Enterprise 11.x federado, asegurando la disponibilidad continua de servicios web SIG en más de 3 unidades de negocio de Geoportal Geosura.',
+        'Trabajo en HYG Consultores S.A.S., firma consultora GIS, brindando soporte SIG transversal en proyectos para clientes públicos y privados: Municipio de Envigado, Municipio de Itagüí, Cornare, BanCO2, Corantioquia, Metro de Medellín, ISA e ISAGEN.',
+        'Actualmente dedicado de lleno a Geosura — plataforma geoespacial nacional — administrando su entorno ArcGIS Enterprise 11.x federado y garantizando la disponibilidad continua de servicios Web SIG en más de 3 unidades de negocio.',
         'Automaticé el ciclo completo de publicación de servicios con Python Toolboxes (ArcPy), reduciendo el tiempo de despliegue en ~60% y eliminando errores manuales.',
         'Diagnostico y resuelvo incidentes en la infraestructura SIG corporativa, coordinando con equipos TI para mantener la continuidad del servicio e integridad de los datos.',
         'Implementé el flujo OAuth2 Client Credentials para un geoportal público, gestionando el ciclo de vida de tokens y estrategias de compartición de servicios.',
         'Brindo soporte técnico nivel 2 a usuarios SIG en ArcGIS Pro, ArcGIS Online y QGIS — configuración, acceso a servicios, simbología y rendimiento.',
-        'Diseñé una metodología Web GIS corporativa basada en estándares OGC (WMS/WFS/REST), integrando plataformas ESRI y open source.',
-        'Lideré capacitaciones internas en herramientas SIG, diseñando planes de aprendizaje adaptados al nivel técnico de cada equipo.'
+        'Diseñé una metodología Web GIS corporativa basada en estándares OGC (WMS/WFS/REST), integrando plataformas ESRI y open source.'
       ]
     },
-    company: 'HYG Consultores S.A.S. — Infraestructura Geoportal Geosura · Medellín, Colombia'
+    company: 'HYG Consultores S.A.S. · Medellín, Colombia'
   },
   {
     date: '2019 – 2021',
