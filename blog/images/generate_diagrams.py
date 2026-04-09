@@ -426,9 +426,184 @@ def flow_backup():
     print("OK " + path)
 
 
+# ════════════════════════════════════════════════════════════════════════════
+# COVER 3 — DataStore Validation  (editorial, 16:7)
+# ════════════════════════════════════════════════════════════════════════════
+def cover_datastores():
+    fig, ax = plt.subplots(figsize=(12, 5.25))
+    fig.patch.set_facecolor(NAVY2)
+    ax.set_facecolor(NAVY2)
+    ax.set_xlim(0, 12); ax.set_ylim(0, 5.25)
+    ax.axis('off')
+    gradient_bg(ax, fig, NAVY2, NAVY)
+
+    # Barra acento izquierda
+    ax.add_patch(plt.Rectangle((0, 0), 0.22, 5.25,
+                                facecolor=TEAL, zorder=5))
+
+    # --- Bloque texto izquierdo ---
+    ax.text(0.6, 4.5, "ARCPY · ARCGIS SERVER", color=TEAL2,
+            fontsize=8, fontweight='bold', va='center', zorder=5)
+    ax.text(0.6, 3.6,
+            "Validacion de Data Stores\nen ArcGIS Enterprise",
+            color=WHITE, fontsize=19, fontweight='bold',
+            va='center', linespacing=1.25, zorder=5)
+    ax.text(0.6, 2.72,
+            "Monitoreo automatico · Alertas SMTP · Multi-servidor",
+            color=GRAY, fontsize=9, va='center', zorder=5)
+
+    # Metrica destacada
+    rbox(ax, 1.85, 1.72, 3.0, 0.75, fc=MGRAY, ec=TEAL, lw=1.5)
+    ax.text(1.85, 1.87, "4 servidores · 2 tipos",
+            ha='center', va='center', color=TEAL2,
+            fontsize=11, fontweight='bold', zorder=5)
+    ax.text(1.85, 1.54, "FOLDER + DATABASE validados",
+            ha='center', va='center', color=GRAY,
+            fontsize=8, zorder=5)
+
+    # Divisor
+    ax.plot([4.8, 4.8], [0.4, 4.85], color=TEAL, lw=0.8, alpha=0.35, zorder=3)
+
+    # --- Diagrama derecho: 3 etapas clave ---
+    stages = [
+        (6.3,  3.6, "Listar Items",    "ListDataStoreItems"),
+        (8.65, 3.6, "Validar",         "ValidateDataStoreItem"),
+        (11.0, 3.6, "Alertar",         "send_alert via SMTP"),
+    ]
+    for (x, y, lbl, sub) in stages:
+        rbox(ax, x, y, 2.7, 1.1, fc=TEAL, ec=TEAL2, lw=2)
+        ax.text(x, y + 0.18, lbl,
+                ha='center', va='center', color=WHITE,
+                fontsize=13, fontweight='bold', zorder=5)
+        ax.text(x, y - 0.20, sub,
+                ha='center', va='center', color=NAVY,
+                fontsize=8, zorder=5)
+
+    arrow(ax, 7.65, 3.6, 8.15, 3.6, lw=2, mutation=16)
+    arrow(ax, 9.98, 3.6, 10.48, 3.6, lw=2, mutation=16)
+
+    # Labels de flujo sobre las flechas
+    ax.text(7.9, 3.85, "items[]", ha='center', va='center',
+            color=GRAY, fontsize=7.5, zorder=5)
+    ax.text(10.23, 3.85, "validity != 'valid'",
+            ha='center', va='center', color=GRAY, fontsize=7.5, zorder=5)
+
+    # Nodo de entrada (servidores)
+    rbox(ax, 8.65, 1.9, 6.8, 0.62, fc=DGRAY, ec=TEAL, lw=1.2)
+    ax.text(8.65, 2.06, "CONEXIONES DE SERVIDOR",
+            ha='center', va='center', color=TEAL2,
+            fontsize=7.5, fontweight='bold', zorder=5)
+    ax.text(8.65, 1.78,
+            "prod1.ags  ·  prod2.ags  ·  prod3.ags  ·  prod4.ags",
+            ha='center', va='center', color=GRAY, fontsize=7.5, zorder=5)
+
+    plt.tight_layout(pad=0)
+    path = os.path.join(OUT, "cover-datastores-arcgis-server.png")
+    fig.savefig(path, dpi=200, bbox_inches='tight', facecolor=NAVY2)
+    plt.close()
+    print("OK " + path)
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# FLUJO 3 — Validacion DataStores (in-post, horizontal)
+# ════════════════════════════════════════════════════════════════════════════
+def flow_datastores():
+    fig, ax = plt.subplots(figsize=(13, 5.5))
+    fig.patch.set_facecolor(NAVY2)
+    ax.set_facecolor(NAVY2)
+    ax.set_xlim(0, 13); ax.set_ylim(0, 5.5)
+    ax.axis('off')
+    gradient_bg(ax, fig)
+
+    ax.text(6.5, 5.1, "Flujo de validacion — validate_datastores.py",
+            ha='center', va='center', color=WHITE,
+            fontsize=14, fontweight='bold')
+
+    # Paso 1 — Inicio / cargar conexiones (DGRAY)
+    step_box(ax, 1.2, 3.7, 1.85, 1.0, 1, "Cargar\nconexiones",
+             fc=DGRAY, ec=TEAL2)
+    ax.text(1.2, 2.95, "lista de .ags",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    # Paso 2 — Para cada servidor (DGRAY)
+    step_box(ax, 3.3, 3.7, 1.85, 1.0, 2, "Para cada\nservidor",
+             fc=DGRAY, ec=TEAL2)
+    ax.text(3.3, 2.95, ".ags file",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    # Paso 3 — ListDataStoreItems (TEAL, activo)
+    step_box(ax, 5.5, 3.7, 1.95, 1.0, 3, "ListDataStore\nItems",
+             fc=TEAL, ec=TEAL2, active=True)
+    ax.text(5.5, 2.95, "FOLDER + DATABASE",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    # Paso 4 — ValidateDataStoreItem (TEAL, activo)
+    step_box(ax, 7.7, 3.7, 1.95, 1.0, 4, "Validate\nDataStoreItem",
+             fc=TEAL, ec=TEAL2, active=True)
+    ax.text(7.7, 2.95, "por cada item",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    # Flechas pasos 1..4
+    arrow(ax, 2.12, 3.7, 2.37, 3.7)
+    arrow(ax, 4.22, 3.7, 4.52, 3.7)
+    arrow(ax, 6.48, 3.7, 6.72, 3.7)
+
+    # Rombo decision (valido?)
+    dx, dy, dw, dh = 9.8, 3.7, 0.95, 0.72
+    diamond = plt.Polygon(
+        [[dx, dy+dh], [dx+dw, dy], [dx, dy-dh], [dx-dw, dy]],
+        facecolor=MGRAY, edgecolor=TEAL2, linewidth=2, zorder=4)
+    ax.add_patch(diamond)
+    ax.text(dx, dy + 0.22, "valid?", ha='center', va='center',
+            color=WHITE, fontsize=9, fontweight='bold', zorder=5)
+    ax.text(dx, dy - 0.22, "", ha='center', zorder=5)
+    arrow(ax, 8.68, 3.7, 8.85, 3.7)
+
+    # Rama SI — log OK (derecha del rombo)
+    rbox(ax, 11.6, 3.7, 1.9, 0.85, fc=DGRAY, ec=TEAL2, lw=1.5)
+    ax.text(11.6, 3.78, "log INFO",
+            ha='center', va='center', color=WHITE,
+            fontsize=10, fontweight='bold', zorder=5)
+    ax.text(11.6, 3.52, "[store] name: VALID",
+            ha='center', va='center', color=GRAY, fontsize=8, zorder=5)
+    arrow(ax, 10.75, 3.7, 10.65, 3.7)
+    ax.text(11.1, 3.95, "SI", ha='center', va='center',
+            color=TEAL2, fontsize=9, fontweight='bold', zorder=5)
+
+    # Rama NO — send_alert (abajo del rombo)
+    rbox(ax, 9.8, 1.9, 2.6, 0.85, fc=TEAL, ec=TEAL2, lw=2)
+    ax.text(9.8, 2.0, "send_alert()",
+            ha='center', va='center', color=WHITE,
+            fontsize=11, fontweight='bold', zorder=5)
+    ax.text(9.8, 1.73, "correo con detalle del fallo",
+            ha='center', va='center', color=NAVY, fontsize=8, zorder=5)
+    ax.plot([9.8, 9.8], [2.98, 2.35], color=TEAL2, lw=1.6, zorder=3)
+    ax.annotate("", xy=(9.8, 2.35), xytext=(9.8, 2.98),
+                arrowprops=dict(arrowstyle="-|>", color=TEAL2,
+                                lw=1.6, mutation_scale=14), zorder=4)
+    ax.text(9.3, 2.6, "NO", ha='center', va='center',
+            color=TEAL2, fontsize=9, fontweight='bold', zorder=5)
+
+    # Leyenda
+    rbox(ax, 1.55, 1.6, 2.7, 0.55, fc=DGRAY, ec=TEAL2, lw=1)
+    ax.text(1.55, 1.6, "Pasos de control",
+            ha='center', va='center', color=GRAY, fontsize=8, zorder=5)
+    rbox(ax, 4.65, 1.6, 2.7, 0.55, fc=TEAL, ec=TEAL2, lw=1)
+    ax.text(4.65, 1.6, "Llamadas ArcPy",
+            ha='center', va='center', color=WHITE, fontsize=8, zorder=5)
+
+    plt.tight_layout(pad=0.3)
+    path = os.path.join(OUT, "flujo-datastores-arcgis-server.png")
+    fig.savefig(path, dpi=200, bbox_inches='tight', facecolor=NAVY2)
+    plt.close()
+    print("OK " + path)
+
+
 if __name__ == "__main__":
     cover_enterprise()
     cover_agol()
     flow_enterprise()
     flow_backup()
+    cover_datastores()
+    flow_datastores()
     print("\nTodos los diagramas generados.")

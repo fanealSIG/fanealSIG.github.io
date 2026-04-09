@@ -1,5 +1,19 @@
 [
   {
+    "slug": "2026-04-08-validacion-datastores-arcgis-server",
+    "date": "2026-04-08",
+    "image": "images/cover-datastores-arcgis-server.png",
+    "title": {
+      "es": "Validacion automatica de Data Stores en ArcGIS Server con Python",
+      "en": "Automated Data Store Validation in ArcGIS Server with Python"
+    },
+    "excerpt": {
+      "es": "Como automatizar la validacion de todos los Data Stores registrados en multiples servidores ArcGIS Server y recibir alertas por correo cuando alguno falla, usando arcpy.ValidateDataStoreItem y smtplib.",
+      "en": "How to automate validation of all registered Data Stores across multiple ArcGIS Server nodes and get email alerts on failure, using arcpy.ValidateDataStoreItem and smtplib."
+    },
+    "tags": ["Python", "ArcPy", "ArcGIS Server", "Automatizacion", "Monitoring"]
+  },
+  {
     "slug": "2026-04-08-backup-eliminacion-restauracion-agol-python-toolbox",
     "date": "2026-04-08",
     "image": "images/cover-agol-backup.png",
