@@ -141,8 +141,9 @@
         document.getElementById('postBody').innerHTML = marked.parse(md);
         document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
 
-        // Share buttons
-        const pageUrl   = encodeURIComponent(window.location.href);
+        // Share buttons — usar URL estática con OG tags
+        const staticUrl = 'https://fanealSIG.github.io/blog/' + slug + '.html';
+        const pageUrl   = encodeURIComponent(staticUrl);
         const postTitle = encodeURIComponent(document.getElementById('postTitle').textContent);
         document.getElementById('shareLinkedIn').href =
           'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
@@ -153,7 +154,7 @@
         document.getElementById('postShare').classList.add('visible');
 
         document.getElementById('shareCopy').addEventListener('click', function() {
-          navigator.clipboard.writeText(window.location.href).then(() => {
+          navigator.clipboard.writeText(staticUrl).then(() => {
             this.classList.add('copied');
             setTimeout(() => this.classList.remove('copied'), 2200);
           });
