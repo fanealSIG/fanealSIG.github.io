@@ -239,6 +239,32 @@ El script esta disenado para correrse sin supervision. Opciones comunes:
 
 ---
 
+## Compatibilidad con ambientes federados
+
+El script funciona en ArcGIS Enterprise federado sin modificaciones. `ListDataStoreItems` y `ValidateDataStoreItem` se conectan directamente al **ArcGIS Server** a traves del archivo `.ags` — no pasan por la capa de federacion ni por el Portal. Los Data Stores se registran a nivel de Server en ambos casos, asi que el comportamiento es identico.
+
+El unico punto critico es **como se creo el archivo `.ags`**:
+
+| Tipo de conexion `.ags` | Funciona? | Nota |
+|---|---|---|
+| Credenciales de administrador del Server | Si, siempre | Opcion mas robusta para tareas programadas |
+| Credenciales de Portal (usuario publisher) | Si, mientras el token sea valido | El token expira (tipicamente cada 2 h) |
+| Apunta al Web Adaptor (URL publica) | A veces | Algunas funciones ArcPy prefieren la URL interna del Server |
+
+Para ejecuciones automaticas sin supervision, usar la **URL interna del Server** al crear el `.ags`, no la del Web Adaptor:
+
+```
+# URL interna — recomendada para scripts automatizados
+https://server-interno.dominio.local:6443/arcgis
+
+# URL publica via Web Adaptor — evitar para ArcPy geoprocessing
+https://portal.dominio.com/server
+```
+
+En ArcGIS Pro: *Catalog > Servers > Add ArcGIS Server*, ingresar la URL interna y marcar **Save username/password** para que el `.ags` incluya credenciales persistentes.
+
+---
+
 ## Proximos pasos
 
 - Integrar con un sistema de tickets: convertir la alerta en un issue automatico en Jira o ServiceNow
