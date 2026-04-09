@@ -147,6 +147,54 @@
 .post-not-found { text-align: center; padding: 6rem 2rem; }
 .post-not-found p { color: var(--gray2); font-family: 'Space Mono', monospace; font-size: .85rem; }
 
+/* ── SHARE ─────────────────────────────────────────────────── */
+.post-share {
+  max-width: 760px; margin: 0 auto;
+  padding: 2rem 4rem 3rem;
+  background: var(--white);
+  border-top: 1px solid var(--gray3);
+  display: none; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+}
+.post-share.visible { display: flex; }
+.share-label {
+  font-family: 'Space Mono', monospace; font-size: .7rem;
+  color: var(--gray2); letter-spacing: .08em; white-space: nowrap;
+}
+.share-buttons { display: flex; gap: .6rem; flex-wrap: wrap; }
+.share-btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: 'Space Mono', monospace; font-size: .7rem;
+  font-weight: 700; letter-spacing: .04em;
+  padding: .45rem .9rem; border-radius: 4px;
+  border: 1.5px solid transparent;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s; white-space: nowrap;
+}
+.share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.share-linkedin { background: #0A66C2; color: #fff; border-color: #0A66C2; }
+.share-linkedin:hover { background: #004182; border-color: #004182; }
+
+.share-twitter { background: #000; color: #fff; border-color: #000; }
+.share-twitter:hover { background: #1a1a1a; border-color: #333; }
+
+.share-whatsapp { background: #25D366; color: #fff; border-color: #25D366; }
+.share-whatsapp:hover { background: #128C7E; border-color: #128C7E; }
+
+.share-copy {
+  background: transparent; color: var(--teal);
+  border-color: var(--teal);
+}
+.share-copy:hover { background: var(--teal); color: #fff; }
+.share-copy .copy-done { display: none; }
+.share-copy.copied .copy-default { display: none; }
+.share-copy.copied .copy-done    { display: inline; }
+.share-copy.copied { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+@media (max-width: 900px) {
+  .post-share { padding: 1.5rem; }
+}
+
 /* ── RESPONSIVE ────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .blog-hero, .post-hero { padding: 7rem 1.5rem 3rem; }
