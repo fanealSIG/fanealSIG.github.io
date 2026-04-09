@@ -81,6 +81,12 @@ Reglas de redacción:
   *Descripción breve del diagrama*
   ```
 
+**Si el código interactúa con ArcGIS Server o ArcGIS Enterprise**, incluir siempre una sección **"Compatibilidad con ambientes federados"** antes de "Próximos pasos". La sección debe cubrir:
+- Si el código funciona sin modificaciones en ambientes federados y por qué
+- Cómo se crean los archivos `.ags` (credenciales de admin vs usuario Portal, URL interna del Server vs Web Adaptor)
+- Tabla con los tres tipos de conexión y si funcionan
+- Snippet mostrando la diferencia entre URL interna y URL del Web Adaptor
+
 ### 4. Crear los diagramas
 
 Agregar dos funciones nuevas al final de `blog/images/generate_diagrams.py` (antes del `if __name__ == "__main__":`):
@@ -162,3 +168,4 @@ git push
 - [ ] `posts.json` tiene la entrada al inicio del array
 - [ ] El stub HTML tiene todas las OG tags con URLs absolutas
 - [ ] El post termina con la línea de IA generativa
+- [ ] Si el código usa ArcGIS Server/Enterprise: incluye sección "Compatibilidad con ambientes federados"
