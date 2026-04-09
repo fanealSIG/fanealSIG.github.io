@@ -231,3 +231,5 @@ Con este toolbox, una migración que habría tomado varios días de trabajo manu
 ---
 
 *¿Tienes preguntas o mejoras? Escríbeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
+
+<span class="post-ai-note">Redactado con asistencia de IA generativa · Código revisado y validado en producción</span>

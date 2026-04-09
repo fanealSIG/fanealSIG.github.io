@@ -135,6 +135,12 @@
   padding: .15rem .4rem; border-radius: 3px;
 }
 .post-body pre code { background: none; padding: 0; }
+.post-ai-note {
+  display: block; margin-top: 2rem;
+  font-family: 'Space Mono', monospace; font-size: .68rem;
+  color: var(--gray2); letter-spacing: .04em;
+  padding-top: 1rem; border-top: 1px solid var(--gray3);
+}
 .post-body img {
   display: block; width: calc(100% + 8rem); max-width: none;
   margin: 1.8rem -4rem; border-radius: 4px;
