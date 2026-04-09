@@ -86,16 +86,19 @@
     }
     grid.innerHTML = posts.map(p => `
       <a class="blog-card" href="post.html?slug=${p.slug}">
-        <div class="blog-card-meta">
-          <span class="blog-card-date">${p.date}</span>
-          ${p.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}
+        ${p.image ? `<div class="blog-card-img"><img src="${p.image}" alt="${p.title[lang]}" loading="lazy" /></div>` : ''}
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span class="blog-card-date">${p.date}</span>
+            ${p.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}
+          </div>
+          <h2 class="blog-card-title">${p.title[lang]}</h2>
+          <p class="blog-card-excerpt">${p.excerpt[lang]}</p>
+          <span class="blog-card-read">
+            <span data-lang="es">Leer entrada →</span>
+            <span data-lang="en">Read post →</span>
+          </span>
         </div>
-        <h2 class="blog-card-title">${p.title[lang]}</h2>
-        <p class="blog-card-excerpt">${p.excerpt[lang]}</p>
-        <span class="blog-card-read">
-          <span data-lang="es">Leer entrada →</span>
-          <span data-lang="en">Read post →</span>
-        </span>
       </a>`).join('');
     applyLang();
   }

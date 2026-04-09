@@ -2,6 +2,7 @@
   {
     "slug": "2026-04-08-backup-eliminacion-restauracion-agol-python-toolbox",
     "date": "2026-04-08",
+    "image": "images/cover-agol-backup.png",
     "title": {
       "es": "Backup, eliminación masiva y restauración de contenido ArcGIS Online con Python Toolbox",
       "en": "Bulk Backup, Deletion and Restore of ArcGIS Online Content with Python Toolbox"
@@ -15,13 +16,14 @@
   {
     "slug": "2026-04-06-automatizacion-publicacion-servicios-arcgis",
     "date": "2026-04-06",
+    "image": "images/cover-enterprise-publishing.png",
     "title": {
       "es": "Automatizando la publicación de servicios en ArcGIS Enterprise con Python",
       "en": "Automating Service Publishing in ArcGIS Enterprise with Python"
     },
     "excerpt": {
-      "es": "Cómo reducir el tiempo de publicación de servicios web de 20 minutos a menos de 3, usando Python Toolboxes y ArcPy en un entorno ArcGIS Enterprise federado.",
-      "en": "How to reduce web service publishing time from 20 minutes to under 3, using Python Toolboxes and ArcPy in a federated ArcGIS Enterprise environment."
+      "es": "Cómo reducir el tiempo de publicación de servicios web de 10 minutos a menos de 5, usando Python Toolboxes y ArcPy en un entorno ArcGIS Enterprise federado.",
+      "en": "How to reduce web service publishing time from 10 minutes to under 5, using Python Toolboxes and ArcPy in a federated ArcGIS Enterprise environment."
     },
     "tags": ["Python", "ArcPy", "ArcGIS Enterprise", "Automatización"]
   }
