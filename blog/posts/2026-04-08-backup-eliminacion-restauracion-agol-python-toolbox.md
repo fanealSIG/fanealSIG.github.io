@@ -19,7 +19,7 @@ La solución: automatizar cada etapa y dejar un **manifiesto JSON** como fuente 
 
 ---
 
-![Arquitectura del toolbox AGOL Backup](../images/flujo-backup-estrategia.png)
+![Arquitectura del toolbox AGOL Backup](images/flujo-backup-estrategia.png)
 *Estrategia de descarga: descarga directa para Web Maps y archivos nativos, exportación a FGDB para Feature Services*
 
 ## Arquitectura del toolbox

@@ -41,7 +41,7 @@ El `.pyt` expone dos herramientas y un conjunto de funciones auxiliares comparti
 
 ---
 
-![Ciclo de publicación automatizado en ArcGIS Enterprise](../images/flujo-publicacion-enterprise.png)
+![Ciclo de publicación automatizado en ArcGIS Enterprise](images/flujo-publicacion-enterprise.png)
 *Ciclo completo: validación → importación → conexión al portal → gestión de carpetas → SDDraft → Stage → Upload*
 
 ## El ciclo de publicación: SDDraft → Stage → Upload
