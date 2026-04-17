@@ -599,6 +599,190 @@ def flow_datastores():
     print("OK " + path)
 
 
+# ════════════════════════════════════════════════════════════════════════════
+# COVER 4 — Extraccion MXD MAPX  (editorial, 16:7)
+# ════════════════════════════════════════════════════════════════════════════
+def cover_mxd_mapx():
+    fig, ax = plt.subplots(figsize=(12, 5.25))
+    fig.patch.set_facecolor(NAVY2)
+    ax.set_facecolor(NAVY2)
+    ax.set_xlim(0, 12); ax.set_ylim(0, 5.25)
+    ax.axis('off')
+    gradient_bg(ax, fig, NAVY2, NAVY)
+
+    ax.add_patch(plt.Rectangle((0, 0), 0.22, 5.25,
+                                facecolor=TEAL, zorder=5))
+
+    ax.text(0.6, 4.5, "PYTHON · ARCGIS SERVER", color=TEAL2,
+            fontsize=8, fontweight='bold', va='center', zorder=5)
+    ax.text(0.6, 3.6,
+            "Extraccion de Archivos\nFuente desde arcgisinput",
+            color=WHITE, fontsize=19, fontweight='bold',
+            va='center', linespacing=1.25, zorder=5)
+    ax.text(0.6, 2.72,
+            "os.walk · Renombrado por servicio · Inventario Excel",
+            color=GRAY, fontsize=9, va='center', zorder=5)
+
+    rbox(ax, 1.7, 1.72, 2.8, 0.75, fc=MGRAY, ec=TEAL, lw=1.5)
+    ax.text(1.7, 1.87, "50 servicios · < 2 min",
+            ha='center', va='center', color=TEAL2,
+            fontsize=11, fontweight='bold', zorder=5)
+    ax.text(1.7, 1.54, "extraccion completa automatizada",
+            ha='center', va='center', color=GRAY,
+            fontsize=8, zorder=5)
+
+    ax.plot([4.8, 4.8], [0.4, 4.85], color=TEAL, lw=0.8, alpha=0.35, zorder=3)
+
+    stages = [
+        (6.3,  3.6, "Escanear",  "os.walk recursivo"),
+        (8.65, 3.6, "Renombrar", "nombre del servicio"),
+        (11.0, 3.6, "Exportar",  "Excel inventario"),
+    ]
+    for (x, y, lbl, sub) in stages:
+        rbox(ax, x, y, 2.7, 1.1, fc=TEAL, ec=TEAL2, lw=2)
+        ax.text(x, y + 0.18, lbl,
+                ha='center', va='center', color=WHITE,
+                fontsize=13, fontweight='bold', zorder=5)
+        ax.text(x, y - 0.20, sub,
+                ha='center', va='center', color=NAVY,
+                fontsize=8, zorder=5)
+
+    arrow(ax, 7.65, 3.6, 8.15, 3.6, lw=2, mutation=16)
+    arrow(ax, 9.98, 3.6, 10.48, 3.6, lw=2, mutation=16)
+
+    rbox(ax, 6.3, 2.15, 2.4, 0.6, fc=MGRAY, ec=TEAL2, lw=1.2)
+    ax.text(6.3, 2.15, ".mxd  ·  .mapx",
+            ha='center', va='center', color=WHITE, fontsize=9, zorder=5)
+    arrow(ax, 6.3, 2.45, 6.3, 3.05, lw=1.4, mutation=12)
+
+    rbox(ax, 8.65, 2.15, 2.4, 0.6, fc=MGRAY, ec=TEAL2, lw=1.2)
+    ax.text(8.65, 2.15, "NombreServicio.MapServer",
+            ha='center', va='center', color=WHITE, fontsize=7.5, zorder=5)
+    arrow(ax, 8.65, 2.45, 8.65, 3.05, lw=1.4, mutation=12)
+
+    rbox(ax, 11.0, 2.15, 2.4, 0.6, fc=MGRAY, ec=TEAL2, lw=1.2)
+    ax.text(11.0, 2.15, "inventario_archivos.xlsx",
+            ha='center', va='center', color=WHITE, fontsize=7.5, zorder=5)
+    arrow(ax, 11.0, 3.05, 11.0, 2.45, lw=1.4, mutation=12)
+
+    plt.tight_layout(pad=0)
+    path = os.path.join(OUT, "cover-extraccion-mxd-mapx.png")
+    fig.savefig(path, dpi=200, bbox_inches='tight', facecolor=NAVY2)
+    plt.close()
+    print("OK " + path)
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# FLUJO 4 — Extraccion MXD MAPX (in-post, horizontal)
+# ════════════════════════════════════════════════════════════════════════════
+def flow_mxd_mapx():
+    fig, ax = plt.subplots(figsize=(13, 5.5))
+    fig.patch.set_facecolor(NAVY2)
+    ax.set_facecolor(NAVY2)
+    ax.set_xlim(0, 13); ax.set_ylim(0, 5.5)
+    ax.axis('off')
+    gradient_bg(ax, fig)
+
+    ax.text(6.5, 5.1, "Flujo de extraccion — arcgisinput",
+            ha='center', va='center', color=WHITE,
+            fontsize=14, fontweight='bold')
+
+    # Paso 1 — Recorrer
+    step_box(ax, 1.2, 3.8, 1.8, 1.0, 1, "Recorrer\narcgisinput",
+             fc=DGRAY, ec=TEAL2)
+    ax.text(1.2, 3.05, "os.walk",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    # Paso 2 — Filtrar
+    step_box(ax, 3.2, 3.8, 1.8, 1.0, 2, "Filtrar\n.mxd / .mapx",
+             fc=DGRAY, ec=TEAL2)
+    ax.text(3.2, 3.05, "endswith()",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+
+    arrow(ax, 2.10, 3.8, 2.30, 3.8)
+    arrow(ax, 4.10, 3.8, 4.30, 3.8)
+
+    # Rombo decision — .MapServer?
+    dx, dy, dw, dh = 5.2, 3.8, 0.88, 0.70
+    diamond = plt.Polygon(
+        [[dx, dy+dh], [dx+dw, dy], [dx, dy-dh], [dx-dw, dy]],
+        facecolor=MGRAY, edgecolor=TEAL2, linewidth=2, zorder=4)
+    ax.add_patch(diamond)
+    ax.text(dx, dy + 0.22, ".Map", ha='center', va='center',
+            color=WHITE, fontsize=9, fontweight='bold', zorder=5)
+    ax.text(dx, dy - 0.22, "Server?", ha='center', va='center',
+            color=GRAY, fontsize=9, zorder=5)
+
+    # Rama SI — nombre servicio (derecha del rombo)
+    rbox(ax, 7.1, 3.8, 2.0, 0.8, fc=TEAL, ec=TEAL2, lw=2)
+    ax.text(7.1, 3.93, "Nombre servicio",
+            ha='center', va='center', color=WHITE,
+            fontsize=10, fontweight='bold', zorder=5)
+    ax.text(7.1, 3.67, "Servicio.ext",
+            ha='center', va='center', color=NAVY, fontsize=8, zorder=5)
+    arrow(ax, 6.08, 3.8, 6.10, 3.8)
+    ax.text(6.6, 4.05, "SI", ha='center', va='center',
+            color=TEAL2, fontsize=9, fontweight='bold', zorder=5)
+
+    # Rama NO — nombre original (abajo del rombo)
+    rbox(ax, 5.2, 2.15, 2.0, 0.72, fc=DGRAY, ec=TEAL2, lw=1.5)
+    ax.text(5.2, 2.28, "Nombre original",
+            ha='center', va='center', color=WHITE,
+            fontsize=10, fontweight='bold', zorder=5)
+    ax.text(5.2, 2.04, "file (fallback)",
+            ha='center', va='center', color=GRAY, fontsize=8, zorder=5)
+    ax.plot([5.2, 5.2], [3.10, 2.51], color=TEAL2, lw=1.6, zorder=3)
+    ax.annotate("", xy=(5.2, 2.51), xytext=(5.2, 3.10),
+                arrowprops=dict(arrowstyle="-|>", color=TEAL2,
+                                lw=1.6, mutation_scale=14), zorder=4)
+    ax.text(4.68, 2.78, "NO", ha='center', va='center',
+            color=TEAL2, fontsize=9, fontweight='bold', zorder=5)
+
+    # Paso 3 — Copiar a destino
+    step_box(ax, 9.4, 3.8, 2.0, 1.0, 3, "Copiar a\ndestino",
+             fc=TEAL, ec=TEAL2, active=True)
+    ax.text(9.4, 3.05, "shutil.copy2()",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+    arrow(ax, 8.1, 3.8, 8.4, 3.8)
+
+    # Convergencia desde rama NO hacia paso 3 (lineas ortogonales)
+    ax.plot([5.2, 9.4], [1.79, 1.79], color=TEAL2, lw=1.6, zorder=3)
+    ax.plot([9.4, 9.4], [1.79, 3.30], color=TEAL2, lw=1.6, zorder=3)
+    ax.annotate("", xy=(9.4, 3.30), xytext=(9.4, 1.79),
+                arrowprops=dict(arrowstyle="-|>", color=TEAL2,
+                                lw=1.6, mutation_scale=14), zorder=4)
+
+    # Paso 4 — Generar Excel
+    step_box(ax, 11.7, 3.8, 2.0, 1.0, 4, "Generar\nExcel",
+             fc=TEAL, ec=TEAL2, active=True)
+    ax.text(11.7, 3.05, "pandas to_excel()",
+            ha='center', va='center', color=GRAY, fontsize=7.5)
+    arrow(ax, 10.4, 3.8, 10.7, 3.8)
+
+    # Barra de resultado
+    rbox(ax, 7.5, 0.88, 7.6, 0.62, fc=MGRAY, ec=TEAL, lw=1.4)
+    ax.text(7.5, 1.04, "inventario_archivos_fuente.xlsx",
+            ha='center', va='center', color=TEAL2,
+            fontsize=9, fontweight='bold', zorder=5)
+    ax.text(7.5, 0.76,
+            "subcarpeta · servicio · archivo origen · archivo destino · ruta completa",
+            ha='center', va='center', color=GRAY, fontsize=7.5, zorder=5)
+
+    # Leyenda
+    rbox(ax, 1.55, 1.6, 2.7, 0.55, fc=DGRAY, ec=TEAL2, lw=1)
+    ax.text(1.55, 1.6, "Pasos de control",
+            ha='center', va='center', color=GRAY, fontsize=8, zorder=5)
+    rbox(ax, 4.65, 1.6, 2.7, 0.55, fc=TEAL, ec=TEAL2, lw=1)
+    ax.text(4.65, 1.6, "Procesamiento activo",
+            ha='center', va='center', color=WHITE, fontsize=8, zorder=5)
+
+    plt.tight_layout(pad=0.3)
+    path = os.path.join(OUT, "flujo-extraccion-mxd-mapx.png")
+    fig.savefig(path, dpi=200, bbox_inches='tight', facecolor=NAVY2)
+    plt.close()
+    print("OK " + path)
+
+
 if __name__ == "__main__":
     cover_enterprise()
     cover_agol()
@@ -606,4 +790,6 @@ if __name__ == "__main__":
     flow_backup()
     cover_datastores()
     flow_datastores()
+    cover_mxd_mapx()
+    flow_mxd_mapx()
     print("\nTodos los diagramas generados.")

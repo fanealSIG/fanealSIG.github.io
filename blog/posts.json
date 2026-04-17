@@ -1,5 +1,19 @@
 [
   {
+    "slug": "2026-04-17-extraccion-mxd-mapx-arcgisinput",
+    "date": "2026-04-17",
+    "image": "images/cover-extraccion-mxd-mapx.png",
+    "title": {
+      "es": "Extraccion y catalogacion de archivos fuente desde arcgisinput en ArcGIS Server",
+      "en": "Extracting and Cataloging Source Files from arcgisinput in ArcGIS Server"
+    },
+    "excerpt": {
+      "es": "Como recorrer la carpeta arcgisinput de ArcGIS Server para extraer todos los archivos .mxd y .mapx, renombrarlos con el nombre del servicio publicado y generar un inventario Excel automaticamente con Python.",
+      "en": "How to walk ArcGIS Server's arcgisinput folder to extract all .mxd and .mapx files, rename them with the published service name, and automatically generate an Excel inventory using Python."
+    },
+    "tags": ["Python", "ArcGIS Server", "os.walk", "Automatizacion", "Inventario"]
+  },
+  {
     "slug": "2026-04-08-validacion-datastores-arcgis-server",
     "date": "2026-04-08",
     "image": "images/cover-datastores-arcgis-server.png",
