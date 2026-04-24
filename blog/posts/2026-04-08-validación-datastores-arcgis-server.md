@@ -1,32 +1,32 @@
-# Validacion automatica de Data Stores en ArcGIS Server con Python
+# Validación automática de Data Stores en ArcGIS Server con Python
 
-En una infraestructura de ArcGIS Enterprise con varios servidores de produccion, saber si los Data Stores registrados siguen siendo accesibles es critico. Una capa de base de datos o una carpeta de datos que pierde su conexion puede inutilizar decenas de servicios publicados sin que el equipo lo note hasta que un usuario reporta el fallo.
+En una infraestructura de ArcGIS Enterprise con varios servidores de producción, saber si los Data Stores registrados siguen siendo accesibles es crítico. Una capa de base de datos o una carpeta de datos que pierde su conexión puede inutilizar decenas de servicios publicados sin que el equipo lo note hasta que un usuario reporta el fallo.
 
-En este post describo como construi un script de monitoreo que valida automaticamente todos los items registrados — carpetas y bases de datos — en multiples servidores ArcGIS Server, y envia una alerta por correo cuando alguno no pasa la validacion.
+En este post describo cómo construí un script de monitoreo que valida automáticamente todos los ítems registrados — carpetas y bases de datos — en múltiples servidores ArcGIS Server, y envía una alerta por correo cuando alguno no pasa la validación.
 
 ---
 
 ## El problema
 
-El proceso manual era: abrir ArcGIS Server Manager en cada nodo, navegar a *Data Stores*, revisar el estado de cada item registrado y anotar cualquier fallo. Con cuatro servidores de produccion y decenas de Data Stores por servidor, eso era trabajo repetitivo que nadie ejecutaba con la frecuencia necesaria.
+El proceso manual era: abrir ArcGIS Server Manager en cada nodo, navegar a *Data Stores*, revisar el estado de cada ítem registrado y anotar cualquier fallo. Con cuatro servidores de producción y decenas de Data Stores por servidor, eso era trabajo repetitivo que nadie ejecutaba con la frecuencia necesaria.
 
 Los riesgos concretos:
 
-- Un Data Store que falla de madrugada no se detecta hasta el dia siguiente
-- No hay trazabilidad de cuando ocurrio el fallo ni en cual servidor
+- Un Data Store que falla de madrugada no se detecta hasta el día siguiente
+- No hay trazabilidad de cuándo ocurrió el fallo ni en cuál servidor
 - El correo de alerta hay que generarlo manualmente cuando se detecta algo
 
-La solucion: automatizar la validacion con `arcpy.ValidateDataStoreItem` y programar el script como una tarea del sistema operativo.
+La solución: automatizar la validación con `arcpy.ValidateDataStoreItem` y programar el script como una tarea del sistema operativo.
 
 ---
 
 ## Herramientas utilizadas
 
-- **ArcPy** — libreria Python de Esri incluida en ArcGIS Pro / ArcGIS Server
-- **arcpy.ListDataStoreItems** — lista los items registrados por tipo en un servidor
-- **arcpy.ValidateDataStoreItem** — verifica si un item de Data Store sigue siendo accesible
-- **smtplib** — modulo estandar de Python para envio de alertas por SMTP
-- **logging** — modulo estandar para trazabilidad estructurada en consola y log
+- **ArcPy** — librería Python de Esri incluida en ArcGIS Pro / ArcGIS Server
+- **arcpy.ListDataStoreItems** — lista los ítems registrados por tipo en un servidor
+- **arcpy.ValidateDataStoreItem** — verifica si un ítem de Data Store sigue siendo accesible
+- **smtplib** — módulo estándar de Python para envío de alertas por SMTP
+- **logging** — módulo estándar para trazabilidad estructurada en consola y log
 
 ---
 
@@ -241,23 +241,23 @@ El script esta disenado para correrse sin supervision. Opciones comunes:
 
 ## Compatibilidad con ambientes federados
 
-El script funciona en ArcGIS Enterprise federado sin modificaciones. `ListDataStoreItems` y `ValidateDataStoreItem` se conectan directamente al **ArcGIS Server** a traves del archivo `.ags` — no pasan por la capa de federacion ni por el Portal. Los Data Stores se registran a nivel de Server en ambos casos, asi que el comportamiento es identico.
+El script funciona en ArcGIS Enterprise federado sin modificaciones. `ListDataStoreItems` y `ValidateDataStoreItem` se conectan directamente al **ArcGIS Server** a través del archivo `.ags` — no pasan por la capa de federación ni por el Portal. Los Data Stores se registran a nivel de Server en ambos casos, así que el comportamiento es idéntico.
 
-El unico punto critico es **como se creo el archivo `.ags`**:
+El único punto crítico es **cómo se creó el archivo `.ags`**:
 
-| Tipo de conexion `.ags` | Funciona? | Nota |
+| Tipo de conexión `.ags` | ¿Funciona? | Nota |
 |---|---|---|
-| Credenciales de administrador del Server | Si, siempre | Opcion mas robusta para tareas programadas |
-| Credenciales de Portal (usuario publisher) | Si, mientras el token sea valido | El token expira (tipicamente cada 2 h) |
-| Apunta al Web Adaptor (URL publica) | A veces | Algunas funciones ArcPy prefieren la URL interna del Server |
+| Credenciales de administrador del Server | Sí, siempre | Opción más robusta para tareas programadas |
+| Credenciales de Portal (usuario publisher) | Sí, mientras el token sea válido | El token expira (típicamente cada 2 h) |
+| Apunta al Web Adaptor (URL pública) | A veces | Algunas funciones ArcPy prefieren la URL interna del Server |
 
-Para ejecuciones automaticas sin supervision, usar la **URL interna del Server** al crear el `.ags`, no la del Web Adaptor:
+Para ejecuciones automáticas sin supervisión, usar la **URL interna del Server** al crear el `.ags`, no la del Web Adaptor:
 
 ```
 # URL interna — recomendada para scripts automatizados
 https://server-interno.dominio.local:6443/arcgis
 
-# URL publica via Web Adaptor — evitar para ArcPy geoprocessing
+# URL pública via Web Adaptor — evitar para ArcPy geoprocessing
 https://portal.dominio.com/server
 ```
 
@@ -265,7 +265,7 @@ En ArcGIS Pro: *Catalog > Servers > Add ArcGIS Server*, ingresar la URL interna 
 
 ---
 
-## Proximos pasos
+## Próximos pasos
 
 - Integrar con un sistema de tickets: convertir la alerta en un issue automatico en Jira o ServiceNow
 - Exportar los resultados a un CSV por fecha para tendencias historicas

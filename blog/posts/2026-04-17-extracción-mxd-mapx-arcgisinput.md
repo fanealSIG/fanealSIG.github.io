@@ -150,21 +150,21 @@ if __name__ == "__main__":
 
 El script accede directamente al sistema de archivos del servidor —no usa ArcPy ni hace llamadas REST— por lo que funciona igual en ambientes federados y no federados. Solo requiere acceso de lectura a la carpeta `arcgisinput`.
 
-El punto critico en entornos federados es **desde donde se ejecuta el script**:
+El punto crítico en entornos federados es **desde dónde se ejecuta el script**:
 
-| Escenario | Funciona? | Nota |
+| Escenario | ¿Funciona? | Nota |
 |---|---|---|
-| Ejecucion en el mismo servidor ArcGIS Server | Si, siempre | Acceso local directo a `arcgisinput` |
-| Ejecucion remota via ruta UNC compartida | Si, si el share esta habilitado | Requiere permisos de lectura de red |
-| Ejecucion en maquina sin acceso al share | No | `os.walk` no puede recorrer la ruta |
+| Ejecución en el mismo servidor ArcGIS Server | Sí, siempre | Acceso local directo a `arcgisinput` |
+| Ejecución remota vía ruta UNC compartida | Sí, si el share está habilitado | Requiere permisos de lectura de red |
+| Ejecución en máquina sin acceso al share | No | `os.walk` no puede recorrer la ruta |
 
-En infraestructuras federadas, `arcgisinput` suele estar en el directorio de datos del servidor. Si el share no esta habilitado por defecto, el administrador puede exponerlo como carpeta compartida de red con permisos de solo lectura:
+En infraestructuras federadas, `arcgisinput` suele estar en el directorio de datos del servidor. Si el share no está habilitado por defecto, el administrador puede exponerlo como carpeta compartida de red con permisos de solo lectura:
 
 ```
-# Ruta local — ejecucion directa en el servidor
+# Ruta local — ejecución directa en el servidor
 C:\arcgisserver\directories\arcgisinput
 
-# Ruta UNC — ejecucion remota (requiere share habilitado)
+# Ruta UNC — ejecución remota (requiere share habilitado)
 \\nombre-servidor\arcgisinput
 ```
 
@@ -172,15 +172,15 @@ El script no escribe nada en `arcgisinput`; toda la salida va al escritorio del 
 
 ---
 
-## Proximos pasos
+## Próximos pasos
 
-- Agregar filtro por fecha de modificacion para procesar solo archivos actualizados recientemente
-- Generar un reporte adicional que liste los servicios del catalogo REST sin archivo fuente localizado en `arcgisinput`
-- Encapsular como Python Toolbox para ejecutarlo directamente desde ArcGIS Pro con interfaz grafica
-- Extender para incluir archivos `.lyrx` y `.stylx` que tambien se almacenan en el directorio del servidor
+- Agregar filtro por fecha de modificación para procesar solo archivos actualizados recientemente
+- Generar un reporte adicional que liste los servicios del catálogo REST sin archivo fuente localizado en `arcgisinput`
+- Encapsular como Python Toolbox para ejecutarlo directamente desde ArcGIS Pro con interfaz gráfica
+- Extender para incluir archivos `.lyrx` y `.stylx` que también se almacenan en el directorio del servidor
 
 ---
 
-*Tienes preguntas o mejoras? Escribeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
+*¿Tienes preguntas o mejoras? Escríbeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
 
-<span class="post-ai-note">Redactado con asistencia de IA generativa · Codigo revisado y validado en produccion</span>
+<span class="post-ai-note">Redactado con asistencia de IA generativa · Código revisado y validado en producción</span>

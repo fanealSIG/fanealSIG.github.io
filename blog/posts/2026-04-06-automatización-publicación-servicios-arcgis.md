@@ -271,7 +271,7 @@ Durante el desarrollo surgieron varios errores no documentados en la documentaci
 | `Incompatible server_type HOSTING_SERVER with MAP_IMAGE` | `HOSTING_SERVER` no admite servicios MAP_IMAGE | Usar siempre `FEDERATED_SERVER` para publicar en ArcGIS Server federado |
 | `ERROR 00374: Unique numeric IDs not assigned` | MXDs creados en versiones antiguas de ArcMap sin IDs numéricos | (1) `checkUniqueIDAssignment=False` en el `SharingDraft`; (2) si igual falla, parchear el XML del SDDraft con `_fix_layer_ids_sddraft()` y reintentar Stage |
 | `SSL: CERTIFICATE_VERIFY_FAILED` | Enterprise on-premise usa certificados autofirmados que Python rechaza | Todas las llamadas REST usan contexto SSL con `check_hostname=False` y `CERT_NONE` |
-| `in_folder_type=EXISTING` falla en primera publicación | Si la carpeta no existe aún en ArcGIS Server, `EXISTING` lanza error | Lógica dinámica: `ROOT` (sin carpeta), `EXISTING` (sobrescribir), `NEW` (primera vez en esa carpeta) |
+| `in_folder_type=EXISTING` falla en primera publicación | Sí la carpeta no existe aún en ArcGIS Server, `EXISTING` lanza error | Lógica dinámica: `ROOT` (sin carpeta), `EXISTING` (sobrescribir), `NEW` (primera vez en esa carpeta) |
 
 ---
 
@@ -281,7 +281,7 @@ Durante el desarrollo surgieron varios errores no documentados en la documentaci
 
 **Datos registrados:** el toolbox asume `copyDataToServer=False`, lo que significa que las capas deben tener sus datos registrados como **Data Stores** en ArcGIS Server. Si los datos no están registrados, `StageService` fallará. Para registrar: *ArcGIS Server Manager > Site > Data Stores > Register*.
 
-**Separación Portal/Server:** en ArcGIS Enterprise existen dos espacios de carpetas independientes. El toolbox los gestiona de forma coordinada asignando el mismo nombre a `portalFolder` (via REST API) y `serverFolder` (via `UploadServiceDefinition`).
+**Separación Portal/Server:** en ArcGIS Enterprise existen dos espacios de carpetas independientes. El toolbox los gestiona de forma coordinada asignando el mismo nombre a `portalFolder` (vía REST API) y `serverFolder` (vía `UploadServiceDefinition`).
 
 **Directorio temporal:** por cada servicio se generan dos archivos intermedios (`.sddraft` y `.sd`). En la publicación masiva cada servicio usa su propio subdirectorio para evitar colisiones de nombres. El toolbox no limpia el temporal al finalizar, lo que permite inspeccionar los archivos en caso de error.
 
