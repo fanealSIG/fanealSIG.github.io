@@ -1,8 +1,8 @@
-# Extraccion y catalogacion de archivos fuente desde arcgisinput en ArcGIS Server
+# Extracción y catalogación de archivos fuente desde arcgisinput en ArcGIS Server
 
-ArcGIS Server almacena los documentos fuente de los servicios publicados —archivos `.mxd` y `.mapx`— en una carpeta llamada `arcgisinput`, organizada por subcarpetas que corresponden a grupos del catalogo de servicios. Cada servicio genera su propia subcarpeta interna con el patron `NombreServicio.MapServer/`, que es la ruta que el servidor usa internamente, no el nombre que el equipo conoce.
+ArcGIS Server almacena los documentos fuente de los servicios publicados —archivos `.mxd` y `.mapx`— en una carpeta llamada `arcgisinput`, organizada por subcarpetas que corresponden a grupos del catálogo de servicios. Cada servicio genera su propia subcarpeta interna con el patrón `NombreServicio.MapServer/`, que es la ruta que el servidor usa internamente, no el nombre que el equipo conoce.
 
-Cuando surgio la necesidad de auditar y reorganizar los archivos fuente de decenas de servicios, navegar esa estructura a mano era lento y propenso a errores. Construi un script que recorre `arcgisinput` de forma recursiva, extrae todos los `.mxd` y `.mapx`, los renombra con el nombre del servicio al que pertenecen y los copia a una estructura limpia en el escritorio, junto con un reporte Excel del inventario completo.
+Cuando surgió la necesidad de auditar y reorganizar los archivos fuente de decenas de servicios, navegar esa estructura a mano era lento y propenso a errores. Construí un script que recorre `arcgisinput` de forma recursiva, extrae todos los `.mxd` y `.mapx`, los renombra con el nombre del servicio al que pertenecen y los copia a una estructura limpia en el escritorio, junto con un reporte Excel del inventario completo.
 
 ---
 
@@ -30,7 +30,7 @@ Sin un inventario estructurado, era facil confundir versiones o perder de vista 
 ![Flujo de extraccion MXD MAPX](images/flujo-extraccion-mxd-mapx.png)
 *El script recorre arcgisinput, detecta los archivos fuente, extrae el nombre del servicio desde la carpeta .MapServer y los copia organizados*
 
-## Como funciona el script
+## Cómo funciona el script
 
 El flujo tiene cuatro pasos:
 
@@ -54,7 +54,7 @@ import pandas as pd
 def extraer_archivos_fuente(directorio_raiz, carpeta_salida):
     """
     Recorre arcgisinput y copia todos los .mxd y .mapx a una
-    estructura organizada por subcarpeta, renombrandolos con
+    estructura organizada por subcarpeta, renombrándolos con
     el nombre del servicio al que pertenecen.
 
     :param directorio_raiz: Ruta a la carpeta arcgisinput del servidor
@@ -77,7 +77,7 @@ def extraer_archivos_fuente(directorio_raiz, carpeta_salida):
             ruta_completa = os.path.join(root, file)
             partes = ruta_completa.replace("\\", "/").split("/")
 
-            # Subcarpeta inmediatamente despues de arcgisinput
+            # Subcarpeta inmediatamente después de arcgisinput
             try:
                 idx = next(i for i, p in enumerate(partes)
                            if p.lower() == nombre_raiz)
@@ -172,15 +172,15 @@ El script no escribe nada en `arcgisinput`; toda la salida va al escritorio del 
 
 ---
 
-## Proximos pasos
+## Próximos pasos
 
-- Agregar filtro por fecha de modificacion para procesar solo archivos actualizados recientemente
-- Generar un reporte adicional que liste los servicios del catalogo REST sin archivo fuente localizado en `arcgisinput`
-- Encapsular como Python Toolbox para ejecutarlo directamente desde ArcGIS Pro con interfaz grafica
-- Extender para incluir archivos `.lyrx` y `.stylx` que tambien se almacenan en el directorio del servidor
+- Agregar filtro por fecha de modificación para procesar solo archivos actualizados recientemente
+- Generar un reporte adicional que liste los servicios del catálogo REST sin archivo fuente localizado en `arcgisinput`
+- Encapsular como Python Toolbox para ejecutarlo directamente desde ArcGIS Pro con interfaz gráfica
+- Extender para incluir archivos `.lyrx` y `.stylx` que también se almacenan en el directorio del servidor
 
 ---
 
-*Tienes preguntas o mejoras? Escribeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
+*¿Tienes preguntas o mejoras? Escríbeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
 
 <span class="post-ai-note">Redactado con asistencia de IA generativa · Codigo revisado y validado en produccion</span>
