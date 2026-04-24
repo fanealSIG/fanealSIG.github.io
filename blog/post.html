@@ -90,6 +90,7 @@
   let lang = localStorage.getItem('pref-lang') || 'es';
   const params = new URLSearchParams(window.location.search);
   const slug   = params.get('slug');
+  let meta = null;  // Variable global para acceso en reloadPost
 
   function applyLang() {
     document.querySelectorAll('[data-lang]').forEach(el => {
@@ -101,33 +102,38 @@
   }
 
   function reloadPost() {
-    if (slug) {
-      document.getElementById('postBody').innerHTML = '<p class="blog-loading">Cargando entrada...</p>';
-      fetch(`posts/${slug}-${lang}.md`)
-        .then(r => {
-          if (!r.ok && lang !== 'es') {
-            return fetch(`posts/${slug}-es.md`);
-          }
-          return r;
-        })
-        .then(r => r.text())
-        .then(md => {
-          marked.setOptions({ breaks: true, gfm: true });
-          document.getElementById('postBody').innerHTML = marked.parse(md);
-          document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
-          document.getElementById('postTitle').textContent = meta.title[lang] || meta.title['es'];
-          document.title = `${meta.title[lang] || meta.title['es']} — Fabio Neira Alzate`;
-          applyLang();
-        })
-        .catch(renderNotFound);
-    }
+    if (!slug || !meta) return;
+
+    document.getElementById('postBody').innerHTML = '<p class="blog-loading">Cargando entrada...</p>';
+    document.getElementById('postTitle').textContent = meta.title[lang] || meta.title['es'];
+    document.title = `${meta.title[lang] || meta.title['es']} — Fabio Neira Alzate`;
+
+    fetch(`posts/${slug}-${lang}.md`)
+      .then(r => {
+        if (!r.ok && lang !== 'es') {
+          return fetch(`posts/${slug}-es.md`);
+        }
+        return r;
+      })
+      .then(r => { if (!r || !r.ok) throw new Error(); return r.text(); })
+      .then(md => {
+        marked.setOptions({ breaks: true, gfm: true });
+        document.getElementById('postBody').innerHTML = marked.parse(md);
+        document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+        applyLang();
+      })
+      .catch(renderNotFound);
   }
 
   document.getElementById('btnEn').addEventListener('click', () => {
-    lang = 'en'; localStorage.setItem('pref-lang', lang); reloadPost();
+    lang = 'en';
+    localStorage.setItem('pref-lang', lang);
+    reloadPost();
   });
   document.getElementById('btnEs').addEventListener('click', () => {
-    lang = 'es'; localStorage.setItem('pref-lang', lang); reloadPost();
+    lang = 'es';
+    localStorage.setItem('pref-lang', lang);
+    reloadPost();
   });
 
   function renderNotFound() {
@@ -143,7 +149,7 @@
     fetch('posts.json')
       .then(r => r.json())
       .then(posts => {
-        const meta = posts.find(p => p.slug === slug);
+        meta = posts.find(p => p.slug === slug);
         if (!meta) { renderNotFound(); return; }
 
         // Update page title
@@ -155,41 +161,8 @@
            ${meta.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}`;
         document.getElementById('postTitle').textContent = meta.title[lang];
 
-        // Fetch and render markdown (try current lang, fallback to spanish)
-        return fetch(`posts/${slug}-${lang}.md`)
-          .then(r => {
-            if (!r.ok && lang !== 'es') {
-              return fetch(`posts/${slug}-es.md`);
-            }
-            return r;
-          });
-      })
-      .then(r => { if (!r || !r.ok) throw new Error(); return r.text(); })
-      .then(md => {
-        marked.setOptions({ breaks: true, gfm: true });
-        document.getElementById('postBody').innerHTML = marked.parse(md);
-        document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
-
-        // Share buttons — usar URL estática con OG tags
-        const staticUrl = 'https://fanealSIG.github.io/blog/' + slug + '.html';
-        const pageUrl   = encodeURIComponent(staticUrl);
-        const postTitle = encodeURIComponent(document.getElementById('postTitle').textContent);
-        document.getElementById('shareLinkedIn').href =
-          'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
-        document.getElementById('shareTwitter').href =
-          'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + postTitle;
-        document.getElementById('shareWhatsapp').href =
-          'https://wa.me/?text=' + postTitle + '%20' + pageUrl;
-        document.getElementById('postShare').classList.add('visible');
-
-        document.getElementById('shareCopy').addEventListener('click', function() {
-          navigator.clipboard.writeText(staticUrl).then(() => {
-            this.classList.add('copied');
-            setTimeout(() => this.classList.remove('copied'), 2200);
-          });
-        });
-
-        applyLang();
+        // Load post content
+        reloadPost();
       })
       .catch(renderNotFound);
   }
