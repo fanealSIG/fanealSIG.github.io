@@ -238,7 +238,7 @@ const CERT_GROUPS = [
         icon: '✨',
         year: { en: 'Jun 2025', es: 'Jun 2025' },
         en: { name: 'Generative AI Diploma', issuer: 'Eidos Global + Microsoft', note: 'Foundations and practical applications of generative artificial intelligence in professional environments.' },
-        es: { name: 'Diplomado Generación IA', issuer: 'Eidos Global + Microsoft', note: 'Fundamentos y aplicaciones prácticas de la inteligencia artificial generativa en entornos profesionales.' }
+        es: { name: 'Diplomado en Inteligencia Artificial Generativa', issuer: 'Eidos Global + Microsoft', note: 'Fundamentos y aplicaciones prácticas de la inteligencia artificial generativa en entornos profesionales.' }
       },
       {
         icon: '📊',
