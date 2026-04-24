@@ -1,34 +1,34 @@
 [
   {
-    "slug": "2026-04-17-extraccion-mxd-mapx-arcgisinput",
+    "slug": "2026-04-17-extracción-mxd-mapx-arcgisinput",
     "date": "2026-04-17",
     "image": "images/cover-extraccion-mxd-mapx.png",
     "title": {
-      "es": "Extraccion y catalogacion de archivos fuente desde arcgisinput en ArcGIS Server",
+      "es": "Extracción y catalogación de archivos fuente desde arcgisinput en ArcGIS Server",
       "en": "Extracting and Cataloging Source Files from arcgisinput in ArcGIS Server"
     },
     "excerpt": {
-      "es": "Como recorrer la carpeta arcgisinput de ArcGIS Server para extraer todos los archivos .mxd y .mapx, renombrarlos con el nombre del servicio publicado y generar un inventario Excel automaticamente con Python.",
+      "es": "Cómo recorrer la carpeta arcgisinput de ArcGIS Server para extraer todos los archivos .mxd y .mapx, renombrarlos con el nombre del servicio publicado y generar un inventario Excel automáticamente con Python.",
       "en": "How to walk ArcGIS Server's arcgisinput folder to extract all .mxd and .mapx files, rename them with the published service name, and automatically generate an Excel inventory using Python."
     },
-    "tags": ["Python", "ArcGIS Server", "os.walk", "Automatizacion", "Inventario"]
+    "tags": ["Python", "ArcGIS Server", "os.walk", "Automatización", "Inventario"]
   },
   {
-    "slug": "2026-04-08-validacion-datastores-arcgis-server",
+    "slug": "2026-04-08-validación-datastores-arcgis-server",
     "date": "2026-04-08",
     "image": "images/cover-datastores-arcgis-server.png",
     "title": {
-      "es": "Validacion automatica de Data Stores en ArcGIS Server con Python",
+      "es": "Validación automática de Data Stores en ArcGIS Server con Python",
       "en": "Automated Data Store Validation in ArcGIS Server with Python"
     },
     "excerpt": {
-      "es": "Como automatizar la validacion de todos los Data Stores registrados en multiples servidores ArcGIS Server y recibir alertas por correo cuando alguno falla, usando arcpy.ValidateDataStoreItem y smtplib.",
+      "es": "Cómo automatizar la validación de todos los Data Stores registrados en múltiples servidores ArcGIS Server y recibir alertas por correo cuando alguno falla, usando arcpy.ValidateDataStoreItem y smtplib.",
       "en": "How to automate validation of all registered Data Stores across multiple ArcGIS Server nodes and get email alerts on failure, using arcpy.ValidateDataStoreItem and smtplib."
     },
-    "tags": ["Python", "ArcPy", "ArcGIS Server", "Automatizacion", "Monitoring"]
+    "tags": ["Python", "ArcPy", "ArcGIS Server", "Automatización", "Monitoring"]
   },
   {
-    "slug": "2026-04-08-backup-eliminacion-restauracion-agol-python-toolbox",
+    "slug": "2026-04-08-backup-eliminación-restauración-agol-python-toolbox",
     "date": "2026-04-08",
     "image": "images/cover-agol-backup.png",
     "title": {
@@ -36,13 +36,13 @@
       "en": "Bulk Backup, Deletion and Restore of ArcGIS Online Content with Python Toolbox"
     },
     "excerpt": {
-      "es": "Cómo automatizar la migración completa de una cuenta AGOL — backup con manifiesto JSON, eliminación masiva con protección de ítems y restauración con re-mapeo de dependencias — usando la ArcGIS API for Python.",
+      "es": "Cómo automatizar la migración completa de una cuenta AGOL — backup con manifiesto JSON, eliminación masiva con protección de ítems y restauración con remapeo de dependencias — usando la ArcGIS API for Python.",
       "en": "How to automate a full AGOL account migration — JSON-manifest backup, bulk deletion with item protection, and restore with dependency remapping — using the ArcGIS API for Python."
     },
     "tags": ["Python", "ArcGIS Online", "ArcGIS API for Python", "Automatización"]
   },
   {
-    "slug": "2026-04-06-automatizacion-publicacion-servicios-arcgis",
+    "slug": "2026-04-06-automatización-publicación-servicios-arcgis",
     "date": "2026-04-06",
     "image": "images/cover-enterprise-publishing.png",
     "title": {
