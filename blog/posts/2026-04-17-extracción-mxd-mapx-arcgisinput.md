@@ -1,8 +1,8 @@
 # Extraccion y catalogacion de archivos fuente desde arcgisinput en ArcGIS Server
 
-ArcGIS Server almacena los documentos fuente de los servicios publicados —archivos `.mxd` y `.mapx`— en una carpeta llamada `arcgisinput`, organizada por subcarpetas que corresponden a grupos del catalogo de servicios. Cada servicio genera su propia subcarpeta interna con el patron `NombreServicio.MapServer/`, que es la ruta que el servidor usa internamente, no el nombre que el equipo conoce.
+ArcGIS Server almacena los documentos fuente de los servicios publicados —archivos `.mxd` y `.mapx`— en una carpeta llamada `arcgisinput`, organizada por subcarpetas que corresponden a grupos del catálogo de servicios. Cada servicio genera su propia subcarpeta interna con el patrón `NombreServicio.MapServer/`, que es la ruta que el servidor usa internamente, no el nombre que el equipo conoce.
 
-Cuando surgio la necesidad de auditar y reorganizar los archivos fuente de decenas de servicios, navegar esa estructura a mano era lento y propenso a errores. Construi un script que recorre `arcgisinput` de forma recursiva, extrae todos los `.mxd` y `.mapx`, los renombra con el nombre del servicio al que pertenecen y los copia a una estructura limpia en el escritorio, junto con un reporte Excel del inventario completo.
+Cuando surgió la necesidad de auditar y reorganizar los archivos fuente de decenas de servicios, navegar esa estructura a mano era lento y propenso a errores. Construí un script que recorre `arcgisinput` de forma recursiva, extrae todos los `.mxd` y `.mapx`, los renombra con el nombre del servicio al que pertenecen y los copia a una estructura limpia en el escritorio, junto con un reporte Excel del inventario completo.
 
 ---
 
@@ -13,9 +13,9 @@ La situacion concreta: multiples subcarpetas en `arcgisinput` con archivos fuent
 - Abrir el explorador de archivos y navegar por `arcgisinput`
 - Identificar visualmente la carpeta `NombreServicio.MapServer` correcta para cada servicio
 - Copiar el `.mxd` o `.mapx` a una ubicacion de trabajo con el nombre correcto
-- Repetir por cada servicio involucrado, sin ningun registro de lo que se copio
+- Repetir por cada servicio involucrado, sin ningún registro de lo que se copió
 
-Sin un inventario estructurado, era facil confundir versiones o perder de vista que archivos correspondian a que servicios activos.
+Sin un inventario estructurado, era fácil confundir versiones o perder de vista qué archivos correspondían a qué servicios activos.
 
 ---
 
@@ -39,7 +39,7 @@ El flujo tiene cuatro pasos:
 3. **Determinar el nombre destino** — busca en la ruta el segmento que termina en `.MapServer` y usa la parte anterior como nombre del archivo destino; si no hay `.MapServer` en la ruta, conserva el nombre original como fallback
 4. **Copiar y registrar** — copia el archivo a `MXD_new/<subcarpeta>/` o `MAPX_new/<subcarpeta>/`, agrega sufijo numerico si ya existe un archivo con ese nombre, y acumula la entrada en el inventario
 
-La subcarpeta se determina por el nivel inmediatamente siguiente a `arcgisinput` en la ruta, lo que refleja la organizacion del catalogo de servicios.
+La subcarpeta se determina por el nivel inmediatamente siguiente a `arcgisinput` en la ruta, lo que refleja la organización del catálogo de servicios.
 
 ---
 

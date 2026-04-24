@@ -89,7 +89,7 @@ def get_smtp_password() -> str:
     """
     Retorna la contrasena SMTP del remitente.
     Reemplazar el cuerpo con la logica de recuperacion de credenciales
-    que use tu organizacion (variable de entorno, secrets manager, etc.).
+    que use tu organización (variable de entorno, secrets manager, etc.).
     """
     password = os.environ.get("GIS_MAIL_PASSWORD", "")
     if not password:
@@ -100,7 +100,7 @@ def get_smtp_password() -> str:
 
 
 def send_alert(subject: str, body: str) -> None:
-    """Envia una alerta por SMTP cuando falla la validacion de un Data Store."""
+    """Envía una alerta por SMTP cuando falla la validación de un Data Store."""
     try:
         password = get_smtp_password()
         msg = MIMEText(f"\n{body}")
