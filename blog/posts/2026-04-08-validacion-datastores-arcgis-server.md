@@ -30,8 +30,8 @@ La solucion: automatizar la validacion con `arcpy.ValidateDataStoreItem` y progr
 
 ---
 
-![Flujo de validacion de Data Stores](images/flujo-datastores-arcgis-server.png)
-*El script recorre cada servidor, valida todos los items y envia alerta solo cuando detecta un fallo*
+![Flujo de validación de Data Stores](images/flujo-datastores-arcgis-server.png)
+*El script recorre cada servidor, valida todos los ítems y envía alerta solo cuando detecta un fallo*
 
 ## Como funciona el script
 
@@ -67,13 +67,13 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ─── configuracion ────────────────────────────────────────────────────────────
+# ─── configuración ────────────────────────────────────────────────────────────
 SMTP_HOST    = "smtp-mail.outlook.com"
 SMTP_PORT    = 587
 SENDER_EMAIL = "gis@example.com"
 ALERT_TO     = "alerts@example.com"
 
-# Rutas a los archivos de conexion .ags (uno por servidor)
+# Rutas a los archivos de conexión .ags (uno por servidor)
 AGS_CONNECTIONS = [
     "connections/prod1.ags",
     "connections/prod2.ags",

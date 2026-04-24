@@ -251,7 +251,7 @@ El archivo `reporte_masivo_YYYYMMDD_HHMMSS.csv` contiene:
 
 | Columna | Contenido |
 |---|---|
-| `subcarpeta` | Nombre de la subcarpeta. `(raiz)` para archivos sin subcarpeta |
+| `subcarpeta` | Nombre de la subcarpeta. `(raíz)` para archivos sin subcarpeta |
 | `archivo` | Nombre del MXD o MAPX procesado |
 | `servicio` | Nombre del servicio publicado |
 | `estado` | `EXITOSO` o `ERROR` |
