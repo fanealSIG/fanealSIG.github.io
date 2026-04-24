@@ -100,11 +100,34 @@
     document.documentElement.lang = lang;
   }
 
+  function reloadPost() {
+    if (slug) {
+      document.getElementById('postBody').innerHTML = '<p class="blog-loading">Cargando entrada...</p>';
+      fetch(`posts/${slug}-${lang}.md`)
+        .then(r => {
+          if (!r.ok && lang !== 'es') {
+            return fetch(`posts/${slug}-es.md`);
+          }
+          return r;
+        })
+        .then(r => r.text())
+        .then(md => {
+          marked.setOptions({ breaks: true, gfm: true });
+          document.getElementById('postBody').innerHTML = marked.parse(md);
+          document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+          document.getElementById('postTitle').textContent = meta.title[lang] || meta.title['es'];
+          document.title = `${meta.title[lang] || meta.title['es']} — Fabio Neira Alzate`;
+          applyLang();
+        })
+        .catch(renderNotFound);
+    }
+  }
+
   document.getElementById('btnEn').addEventListener('click', () => {
-    lang = 'en'; localStorage.setItem('pref-lang', lang); applyLang();
+    lang = 'en'; localStorage.setItem('pref-lang', lang); reloadPost();
   });
   document.getElementById('btnEs').addEventListener('click', () => {
-    lang = 'es'; localStorage.setItem('pref-lang', lang); applyLang();
+    lang = 'es'; localStorage.setItem('pref-lang', lang); reloadPost();
   });
 
   function renderNotFound() {
@@ -132,8 +155,14 @@
            ${meta.tags.map(t => `<span class="blog-tag">${t}</span>`).join('')}`;
         document.getElementById('postTitle').textContent = meta.title[lang];
 
-        // Fetch and render markdown
-        return fetch(`posts/${slug}.md`);
+        // Fetch and render markdown (try current lang, fallback to spanish)
+        return fetch(`posts/${slug}-${lang}.md`)
+          .then(r => {
+            if (!r.ok && lang !== 'es') {
+              return fetch(`posts/${slug}-es.md`);
+            }
+            return r;
+          });
       })
       .then(r => { if (!r || !r.ok) throw new Error(); return r.text(); })
       .then(md => {
