@@ -30,8 +30,8 @@ La solución: automatizar la validación con `arcpy.ValidateDataStoreItem` y pro
 
 ---
 
-![Flujo de validacion de Data Stores](images/flujo-datastores-arcgis-server.png)
-*El script recorre cada servidor, valida todos los items y envia alerta solo cuando detecta un fallo*
+![Flujo de validación de Data Stores](images/flujo-datastores-arcgis-server.png)
+*El script recorre cada servidor, valida todos los ítems y envía alerta solo cuando detecta un fallo*
 
 ## Cómo funciona el script
 
@@ -67,13 +67,13 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ─── configuracion ────────────────────────────────────────────────────────────
+# ─── configuración ────────────────────────────────────────────────────────────
 SMTP_HOST    = "smtp-mail.outlook.com"
 SMTP_PORT    = 587
 SENDER_EMAIL = "gis@example.com"
 ALERT_TO     = "alerts@example.com"
 
-# Rutas a los archivos de conexion .ags (uno por servidor)
+# Rutas a los archivos de conexión .ags (uno por servidor)
 AGS_CONNECTIONS = [
     "connections/prod1.ags",
     "connections/prod2.ags",
@@ -87,8 +87,8 @@ STORE_TYPES = ["FOLDER", "DATABASE"]
 
 def get_smtp_password() -> str:
     """
-    Retorna la contraseña SMTP del remitente.
-    Reemplazar el cuerpo con la lógica de recuperación de credenciales
+    Retorna la contrasena SMTP del remitente.
+    Reemplazar el cuerpo con la logica de recuperacion de credenciales
     que use tu organización (variable de entorno, secrets manager, etc.).
     """
     password = os.environ.get("GIS_MAIL_PASSWORD", "")
@@ -120,7 +120,7 @@ def send_alert(subject: str, body: str) -> None:
 
 def validate_connection(ags_file: str) -> None:
     """
-    Lista y valida todos los Data Store items de un servidor.
+    Lista y valida todos los Data Store ítems de un servidor.
 
     :param ags_file: Ruta al archivo de conexión .ags
     """
@@ -230,12 +230,12 @@ El script está diseñado para correrse sin supervisión. Opciones comunes:
 
 ## Resultados
 
-| Situación | Sin script | Con script |
+| Situacion | Sin script | Con script |
 |---|---|---|
-| Detección de fallo en Data Store | Manual, reactiva (usuario reporta) | Proactiva, correo inmediato al fallar |
-| Cobertura de servidores | Solo el que se revisa manualmente | Todos los servidores en una ejecución |
-| Trazabilidad | Ninguna | Log con timestamp por ítem y servidor |
-| Tiempo de revisión | 15-20 min por servidor | < 2 min total (ejecución automática) |
+| Deteccion de fallo en Data Store | Manual, reactiva (usuario reporta) | Proactiva, correo inmediato al fallar |
+| Cobertura de servidores | Solo el que se revisa manualmente | Todos los servidores en una ejecucion |
+| Trazabilidad | Ninguna | Log con timestamp por item y servidor |
+| Tiempo de revision | 15-20 min por servidor | < 2 min total (ejecucion automatica) |
 
 ---
 
@@ -257,7 +257,7 @@ Para ejecuciones automáticas sin supervisión, usar la **URL interna del Server
 # URL interna — recomendada para scripts automatizados
 https://server-interno.dominio.local:6443/arcgis
 
-# URL publica via Web Adaptor — evitar para ArcPy geoprocessing
+# URL pública via Web Adaptor — evitar para ArcPy geoprocessing
 https://portal.dominio.com/server
 ```
 
@@ -267,13 +267,13 @@ En ArcGIS Pro: *Catalog > Servers > Add ArcGIS Server*, ingresar la URL interna 
 
 ## Próximos pasos
 
-- Integrar con un sistema de tickets: convertir la alerta en un issue automático en Jira o ServiceNow
-- Exportar los resultados a un CSV por fecha para tendencias históricas
-- Encapsular como Python Toolbox para que el equipo pueda ejecutarlo desde ArcGIS Pro con interfaz gráfica
-- Agregar validación de disponibilidad del servidor antes de intentar listar ítems
+- Integrar con un sistema de tickets: convertir la alerta en un issue automatico en Jira o ServiceNow
+- Exportar los resultados a un CSV por fecha para tendencias historicas
+- Encapsular como Python Toolbox para que el equipo pueda ejecutarlo desde ArcGIS Pro con interfaz grafica
+- Agregar validacion de disponibilidad del servidor antes de intentar listar items
 
 ---
 
-*¿Tienes preguntas o mejoras? Escríbeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
+*Tienes preguntas o mejoras? Escribeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
 
-<span class="post-ai-note">Redactado con asistencia de IA generativa · Código revisado y validado en producción</span>
+<span class="post-ai-note">Redactado con asistencia de IA generativa · Codigo revisado y validado en produccion</span>

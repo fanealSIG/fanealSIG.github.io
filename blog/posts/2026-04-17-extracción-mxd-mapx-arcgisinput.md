@@ -1,4 +1,4 @@
-# Extracción y catalogación de archivos fuente desde arcgisinput en ArcGIS Server
+# Extraccion y catalogacion de archivos fuente desde arcgisinput en ArcGIS Server
 
 ArcGIS Server almacena los documentos fuente de los servicios publicados —archivos `.mxd` y `.mapx`— en una carpeta llamada `arcgisinput`, organizada por subcarpetas que corresponden a grupos del catálogo de servicios. Cada servicio genera su propia subcarpeta interna con el patrón `NombreServicio.MapServer/`, que es la ruta que el servidor usa internamente, no el nombre que el equipo conoce.
 
@@ -8,11 +8,11 @@ Cuando surgió la necesidad de auditar y reorganizar los archivos fuente de dece
 
 ## El problema
 
-La situación concreta: múltiples subcarpetas en `arcgisinput` con archivos fuente cuyos nombres internos no coinciden necesariamente con los nombres de los servicios publicados. El proceso manual era:
+La situacion concreta: multiples subcarpetas en `arcgisinput` con archivos fuente cuyos nombres internos no coinciden necesariamente con los nombres de los servicios publicados. El proceso manual era:
 
 - Abrir el explorador de archivos y navegar por `arcgisinput`
 - Identificar visualmente la carpeta `NombreServicio.MapServer` correcta para cada servicio
-- Copiar el `.mxd` o `.mapx` a una ubicación de trabajo con el nombre correcto
+- Copiar el `.mxd` o `.mapx` a una ubicacion de trabajo con el nombre correcto
 - Repetir por cada servicio involucrado, sin ningún registro de lo que se copió
 
 Sin un inventario estructurado, era fácil confundir versiones o perder de vista qué archivos correspondían a qué servicios activos.
@@ -23,27 +23,27 @@ Sin un inventario estructurado, era fácil confundir versiones o perder de vista
 
 - **os / os.walk** — recorrido recursivo del sistema de archivos sin dependencias externas
 - **shutil.copy2** — copia de archivos preservando metadatos de sistema operativo
-- **pandas** — generación del reporte Excel con el inventario completo de rutas y nombres
+- **pandas** — generacion del reporte Excel con el inventario completo de rutas y nombres
 
 ---
 
-![Flujo de extracción MXD MAPX](images/flujo-extraccion-mxd-mapx.png)
+![Flujo de extraccion MXD MAPX](images/flujo-extraccion-mxd-mapx.png)
 *El script recorre arcgisinput, detecta los archivos fuente, extrae el nombre del servicio desde la carpeta .MapServer y los copia organizados*
 
-## Cómo funciona el script
+## Como funciona el script
 
 El flujo tiene cuatro pasos:
 
 1. **Recorrer el directorio** — `os.walk` itera recursivamente toda la estructura bajo `arcgisinput`
-2. **Filtrar por extensión** — procesa solo archivos `.mxd` y `.mapx`, ignora el resto
+2. **Filtrar por extension** — procesa solo archivos `.mxd` y `.mapx`, ignora el resto
 3. **Determinar el nombre destino** — busca en la ruta el segmento que termina en `.MapServer` y usa la parte anterior como nombre del archivo destino; si no hay `.MapServer` en la ruta, conserva el nombre original como fallback
-4. **Copiar y registrar** — copia el archivo a `MXD_new/<subcarpeta>/` o `MAPX_new/<subcarpeta>/`, agrega sufijo numérico si ya existe un archivo con ese nombre, y acumula la entrada en el inventario
+4. **Copiar y registrar** — copia el archivo a `MXD_new/<subcarpeta>/` o `MAPX_new/<subcarpeta>/`, agrega sufijo numerico si ya existe un archivo con ese nombre, y acumula la entrada en el inventario
 
 La subcarpeta se determina por el nivel inmediatamente siguiente a `arcgisinput` en la ruta, lo que refleja la organización del catálogo de servicios.
 
 ---
 
-## Código
+## Codigo
 
 ```python
 import os
@@ -54,7 +54,7 @@ import pandas as pd
 def extraer_archivos_fuente(directorio_raiz, carpeta_salida):
     """
     Recorre arcgisinput y copia todos los .mxd y .mapx a una
-    estructura organizada por subcarpeta, renombrándolos con
+    estructura organizada por subcarpeta, renombrandolos con
     el nombre del servicio al que pertenecen.
 
     :param directorio_raiz: Ruta a la carpeta arcgisinput del servidor
@@ -77,7 +77,7 @@ def extraer_archivos_fuente(directorio_raiz, carpeta_salida):
             ruta_completa = os.path.join(root, file)
             partes = ruta_completa.replace("\\", "/").split("/")
 
-            # Subcarpeta inmediatamente después de arcgisinput
+            # Subcarpeta inmediatamente despues de arcgisinput
             try:
                 idx = next(i for i, p in enumerate(partes)
                            if p.lower() == nombre_raiz)
@@ -127,7 +127,7 @@ def extraer_archivos_fuente(directorio_raiz, carpeta_salida):
 
 
 if __name__ == "__main__":
-    directorio = r"C:\arcgisserver\directories\arcgisinput"  # ajustar según el servidor
+    directorio = r"C:\arcgisserver\directories\arcgisinput"  # ajustar segun el servidor
     carpeta    = "ArchivosServer_2026"
     extraer_archivos_fuente(directorio, carpeta)
 ```
@@ -138,11 +138,11 @@ if __name__ == "__main__":
 
 | Tarea | Proceso manual | Con el script |
 |---|---|---|
-| Localizar archivos fuente de 50 servicios | 20-40 min navegando carpetas | < 2 min de ejecución |
+| Localizar archivos fuente de 50 servicios | 20-40 min navegando carpetas | < 2 min de ejecucion |
 | Nombre de los archivos copiados | Nombre interno del servidor (a veces ilegible) | Nombre del servicio publicado |
-| Organización por categoría | Manual, propenso a errores | Automática por subcarpeta de arcgisinput |
-| Inventario documentado | Inexistente o en Excel manual | Excel generado automáticamente con rutas completas |
-| Conflictos de nombre | Sin control | Sufijo numérico automático |
+| Organizacion por categoria | Manual, propenso a errores | Automatica por subcarpeta de arcgisinput |
+| Inventario documentado | Inexistente o en Excel manual | Excel generado automaticamente con rutas completas |
+| Conflictos de nombre | Sin control | Sufijo numerico automatico |
 
 ---
 
@@ -161,10 +161,10 @@ El punto crítico en entornos federados es **desde dónde se ejecuta el script**
 En infraestructuras federadas, `arcgisinput` suele estar en el directorio de datos del servidor. Si el share no está habilitado por defecto, el administrador puede exponerlo como carpeta compartida de red con permisos de solo lectura:
 
 ```
-# Ruta local — ejecucion directa en el servidor
+# Ruta local — ejecución directa en el servidor
 C:\arcgisserver\directories\arcgisinput
 
-# Ruta UNC — ejecucion remota (requiere share habilitado)
+# Ruta UNC — ejecución remota (requiere share habilitado)
 \\nombre-servidor\arcgisinput
 ```
 
