@@ -33,19 +33,19 @@ La solución: automatizar la validación con `arcpy.ValidateDataStoreItem` y pro
 ![Flujo de validación de Data Stores](images/flujo-datastores-arcgis-server.png)
 *El script recorre cada servidor, valida todos los ítems y envía alerta solo cuando detecta un fallo*
 
-## Como funciona el script
+## Cómo funciona el script
 
 El flujo tiene tres pasos claros:
 
 1. **Iterar conexiones** — recorre una lista de archivos `.ags`, uno por servidor
-2. **Listar y validar** — para cada servidor llama a `ListDataStoreItems` (tipo `FOLDER` y `DATABASE`) y luego `ValidateDataStoreItem` por cada item encontrado
-3. **Alertar** — si la validacion devuelve un estado distinto de `"valid"`, o si se lanza una excepcion, envia un correo con el detalle del fallo
+2. **Listar y validar** — para cada servidor llama a `ListDataStoreItems` (tipo `FOLDER` y `DATABASE`) y luego `ValidateDataStoreItem` por cada ítem encontrado
+3. **Alertar** — si la validación devuelve un estado distinto de `"valid"`, o si se lanza una excepción, envía un correo con el detalle del fallo
 
 ---
 
-## Codigo mejorado
+## Código mejorado
 
-El siguiente codigo es una version limpia y generalizada del script original. Se eliminaron imports no utilizados, se corrigio la importacion faltante de `time`, se centralizo la configuracion y se paso de variables globales a parametros explicitos.
+El siguiente código es una versión limpia y generalizada del script original. Se eliminaron imports no utilizados, se corrigió la importación faltante de `time`, se centralizó la configuración y se pasó de variables globales a parámetros explícitos.
 
 ```python
 """
@@ -120,9 +120,9 @@ def send_alert(subject: str, body: str) -> None:
 
 def validate_connection(ags_file: str) -> None:
     """
-    Lista y valida todos los Data Store items de un servidor.
+    Lista y valida todos los Data Store ítems de un servidor.
 
-    :param ags_file: Ruta al archivo de conexion .ags
+    :param ags_file: Ruta al archivo de conexión .ags
     """
     log.info("=== Servidor: %s ===", ags_file)
 
@@ -192,26 +192,26 @@ if __name__ == "__main__":
 
 ---
 
-## Que se cambio respecto al original
+## Qué se cambió respecto al original
 
-| Problema original | Solucion aplicada |
+| Problema original | Solución aplicada |
 |---|---|
-| `import time` faltaba — `time.strftime()` fallaba en ejecucion | Agregado correctamente |
+| `import time` faltaba — `time.strftime()` fallaba en ejecución | Agregado correctamente |
 | 7 imports no utilizados (`calendar`, `datetime`, `httplib`, `urllib`, `json`, `sys`, `MIMEBase`, `MIMEMultipart`, `encoders`) | Eliminados |
-| `import os` duplicado | Consolidado en una sola linea |
-| Variables globales usadas dentro de funciones sin pasar como parametros | Configuracion centralizada en bloque de constantes al inicio del modulo |
+| `import os` duplicado | Consolidado en una sola línea |
+| Variables globales usadas dentro de funciones sin pasar como parámetros | Configuración centralizada en bloque de constantes al inicio del módulo |
 | `get_param()` llamada dos veces para el mismo valor en `send_email` | Consolidado en una sola llamada |
-| Bare `except:` sin capturar la excepcion | Reemplazado por `except Exception as exc:` con log del error |
+| Bare `except:` sin capturar la excepción | Reemplazado por `except Exception as exc:` con log del error |
 | La cadena de if/elif para construir la ruta del servidor | Lista de archivos `.ags` directamente iterable |
-| Receptor de alertas hardcodeado en el codigo | Extraido a constante `ALERT_TO` en la seccion de configuracion |
-| Password recuperada en multiples pasos con logica de descifrado mezclada | Encapsulada en `get_smtp_password()` — facil de reemplazar con cualquier secrets manager |
-| Bloque `with` ausente en `smtplib.SMTP` — conexion no se cerraba en caso de error | Reemplazado por `with smtplib.SMTP(...) as server:` |
+| Receptor de alertas hardcodeado en el código | Extraído a constante `ALERT_TO` en la sección de configuración |
+| Password recuperada en múltiples pasos con lógica de descifrado mezclada | Encapsulada en `get_smtp_password()` — fácil de reemplazar con cualquier secrets manager |
+| Bloque `with` ausente en `smtplib.SMTP` — conexión no se cerraba en caso de error | Reemplazado por `with smtplib.SMTP(...) as server:` |
 
 ---
 
-## Programar la ejecucion automatica
+## Programar la ejecución automática
 
-El script esta disenado para correrse sin supervision. Opciones comunes:
+El script está diseñado para correrse sin supervisión. Opciones comunes:
 
 **Windows Task Scheduler:**
 ```cmd
