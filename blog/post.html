@@ -120,6 +120,26 @@
         marked.setOptions({ breaks: true, gfm: true });
         document.getElementById('postBody').innerHTML = marked.parse(md);
         document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+
+        // Configure share buttons
+        const staticUrl = 'https://fanealSIG.github.io/blog/' + slug + '.html';
+        const pageUrl   = encodeURIComponent(staticUrl);
+        const postTitle = encodeURIComponent(document.getElementById('postTitle').textContent);
+        document.getElementById('shareLinkedIn').href =
+          'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
+        document.getElementById('shareTwitter').href =
+          'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + postTitle;
+        document.getElementById('shareWhatsapp').href =
+          'https://wa.me/?text=' + postTitle + '%20' + pageUrl;
+        document.getElementById('postShare').classList.add('visible');
+
+        document.getElementById('shareCopy').addEventListener('click', function() {
+          navigator.clipboard.writeText(staticUrl).then(() => {
+            this.classList.add('copied');
+            setTimeout(() => this.classList.remove('copied'), 2200);
+          });
+        });
+
         applyLang();
       })
       .catch(renderNotFound);
