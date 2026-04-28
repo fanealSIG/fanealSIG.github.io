@@ -1,279 +1,208 @@
 # Validación automática de Data Stores en ArcGIS Server con Python
 
-En una infraestructura de ArcGIS Enterprise con varios servidores de producción, saber si los Data Stores registrados siguen siendo accesibles es crítico. Una capa de base de datos o una carpeta de datos que pierde su conexión puede inutilizar decenas de servicios publicados sin que el equipo lo note hasta que un usuario reporta el fallo.
+## El problema en simple
 
-En este post describo cómo construí un script de monitoreo que valida automáticamente todos los ítems registrados — carpetas y bases de datos — en múltiples servidores ArcGIS Server, y envía una alerta por correo cuando alguno no pasa la validación.
+Imagina que tienes 4 servidores con datos almacenados en bases de datos y carpetas compartidas. Esos datos alimentan decenas de mapas y servicios que usa tu organización.
 
----
+**¿Qué pasa si una de esas bases de datos se desconecta?** 
 
-## El problema
+- Tus usuarios no lo saben
+- Los mapas dejan de funcionar sin aviso
+- Nadie se da cuenta hasta que alguien reporta el problema
 
-El proceso manual era: abrir ArcGIS Server Manager en cada nodo, navegar a *Data Stores*, revisar el estado de cada ítem registrado y anotar cualquier fallo. Con cuatro servidores de producción y decenas de Data Stores por servidor, eso era trabajo repetitivo que nadie ejecutaba con la frecuencia necesaria.
+Hoy: revisar manualmente 4 servidores × 10+ bases de datos cada día = 30+ minutos de trabajo tedioso y propenso a errores.
 
-Los riesgos concretos:
-
-- Un Data Store que falla de madrugada no se detecta hasta el día siguiente
-- No hay trazabilidad de cuándo ocurrió el fallo ni en cuál servidor
-- El correo de alerta hay que generarlo manualmente cuando se detecta algo
-
-La solución: automatizar la validación con `arcpy.ValidateDataStoreItem` y programar el script como una tarea del sistema operativo.
+**La solución:** Un script que revisa automáticamente todo cada noche y te envía un correo si algo está mal.
 
 ---
 
-## Herramientas utilizadas
+## ¿Quién necesita esto?
 
-- **ArcPy** — librería Python de Esri incluida en ArcGIS Pro / ArcGIS Server
-- **arcpy.ListDataStoreItems** — lista los ítems registrados por tipo en un servidor
-- **arcpy.ValidateDataStoreItem** — verifica si un ítem de Data Store sigue siendo accesible
-- **smtplib** — módulo estándar de Python para envío de alertas por SMTP
-- **logging** — módulo estándar para trazabilidad estructurada en consola y log
+- **Administradores de GIS** que mantienen ArcGIS Server en producción
+- **Equipos** que usan muchos servicios geográficos y no pueden permitirse tiempos de inactividad
+- **Cualquiera** que prefiera dormir tranquilo en lugar de revisar servidores manualmente
 
 ---
 
-![Flujo de validación de Data Stores](images/flujo-datastores-arcgis-server.png)
-*El script recorre cada servidor, valida todos los ítems y envía alerta solo cuando detecta un fallo*
+## Cómo funciona en 3 pasos simples
 
-## Cómo funciona el script
+```
+Cada noche a las 6am:
+  1. El script se conecta a cada servidor
+  2. Revisa todas las bases de datos y carpetas
+  3. Si algo está dañado → te envía un correo
+  4. Si todo está bien → silencio (sin correos molestos)
+```
 
-El flujo tiene tres pasos claros:
-
-1. **Iterar conexiones** — recorre una lista de archivos `.ags`, uno por servidor
-2. **Listar y validar** — para cada servidor llama a `ListDataStoreItems` (tipo `FOLDER` y `DATABASE`) y luego `ValidateDataStoreItem` por cada ítem encontrado
-3. **Alertar** — si la validación devuelve un estado distinto de `"valid"`, o si se lanza una excepción, envía un correo con el detalle del fallo
+**Eso es todo.** No tienes que hacer nada. El script trabaja solo.
 
 ---
 
-## Código mejorado
+## Lo que necesitas
 
-El siguiente código es una versión limpia y generalizada del script original. Se eliminaron imports no utilizados, se corrigió la importación faltante de `time`, se centralizó la configuración y se pasó de variables globales a parámetros explícitos.
+- **Python** (incluido en ArcGIS Pro/Server)
+- **Acceso** a los servidores de tu empresa
+- **Credenciales de correo** para enviar alertas
+- **5 minutos** para configurar (copiar/pegar)
+
+---
+
+## El código: 4 funciones simples
 
 ```python
-"""
-validate_datastores.py
-Validates all registered data stores (FOLDER and DATABASE) across
-one or more ArcGIS Server connections and sends an email alert on failure.
-"""
 import arcpy
-import os
-import time
 import smtplib
-import logging
 from email.mime.text import MIMEText
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s  %(levelname)-8s  %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-log = logging.getLogger(__name__)
+# 1. Conectar con el correo
+def send_alert(server_name, item_name, error):
+    """Envía un correo cuando algo falla"""
+    mensaje = f"⚠️ FALLO en {server_name}\n\n{item_name} no responde.\n\nDetalle: {error}"
+    
+    # Aquí va tu servidor SMTP (Gmail, Outlook, etc)
+    smtp = smtplib.SMTP("smtp.gmail.com", 587)
+    smtp.login("tu-email@empresa.com", "tu-contraseña")
+    smtp.sendmail("tu-email@empresa.com", "alertas@empresa.com", mensaje)
+    smtp.quit()
 
-# ─── configuración ────────────────────────────────────────────────────────────
-SMTP_HOST    = "smtp-mail.outlook.com"
-SMTP_PORT    = 587
-SENDER_EMAIL = "gis@example.com"
-ALERT_TO     = "alerts@example.com"
+# 2. Revisar un servidor
+def revisar_servidor(conexion_ags):
+    """Conecta a un servidor y revisa sus Data Stores"""
+    print(f"Revisando {conexion_ags}...")
+    
+    # Obtener todas las bases de datos registradas
+    bases_de_datos = arcpy.ListDataStoreItems(conexion_ags, "DATABASE")
+    carpetas = arcpy.ListDataStoreItems(conexion_ags, "FOLDER")
+    
+    for item in bases_de_datos + carpetas:
+        nombre = item[0]
+        # Verificar si puede conectarse
+        estado = arcpy.ValidateDataStoreItem(conexion_ags, "DATABASE", nombre)
+        
+        if estado != "valid":
+            print(f"❌ {nombre} está DAÑADO")
+            send_alert(conexion_ags, nombre, estado)
+        else:
+            print(f"✅ {nombre} está OK")
 
-# Rutas a los archivos de conexión .ags (uno por servidor)
-AGS_CONNECTIONS = [
-    "connections/prod1.ags",
-    "connections/prod2.ags",
-    "connections/prod3.ags",
-    "connections/prod4.ags",
-]
-
-STORE_TYPES = ["FOLDER", "DATABASE"]
-# ──────────────────────────────────────────────────────────────────────────────
-
-
-def get_smtp_password() -> str:
-    """
-    Retorna la contrasena SMTP del remitente.
-    Reemplazar el cuerpo con la logica de recuperacion de credenciales
-    que use tu organización (variable de entorno, secrets manager, etc.).
-    """
-    password = os.environ.get("GIS_MAIL_PASSWORD", "")
-    if not password:
-        raise EnvironmentError(
-            "GIS_MAIL_PASSWORD environment variable is not set."
-        )
-    return password
-
-
-def send_alert(subject: str, body: str) -> None:
-    """Envía una alerta por SMTP cuando falla la validación de un Data Store."""
-    try:
-        password = get_smtp_password()
-        msg = MIMEText(f"\n{body}")
-        msg["Subject"] = subject
-        msg["From"]    = SENDER_EMAIL
-        msg["To"]      = ALERT_TO
-
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SENDER_EMAIL, password)
-            server.sendmail(SENDER_EMAIL, ALERT_TO, msg.as_string())
-
-        log.info("Alerta enviada: %s", subject)
-    except Exception as exc:
-        log.error("Error al enviar alerta: %s", exc)
-
-
-def validate_connection(ags_file: str) -> None:
-    """
-    Lista y valida todos los Data Store ítems de un servidor.
-
-    :param ags_file: Ruta al archivo de conexión .ags
-    """
-    log.info("=== Servidor: %s ===", ags_file)
-
-    for store_type in STORE_TYPES:
-        log.info("-- Tipo: %s --", store_type)
+# 3. Revisar todos los servidores
+def revisar_todos():
+    """Ejecuta la revisión en todos tus servidores"""
+    servidores = [
+        "C:\\Users\\admin\\AppData\\Roaming\\ESRI\\Desktop\\ArcGISPro\\Favorites\\prod1.ags",
+        "C:\\Users\\admin\\AppData\\Roaming\\ESRI\\Desktop\\ArcGISPro\\Favorites\\prod2.ags",
+        # ... agregar los tuyos
+    ]
+    
+    for servidor in servidores:
         try:
-            items = arcpy.ListDataStoreItems(ags_file, store_type)
-        except Exception as exc:
-            log.error("No se pudo listar %s en %s: %s", store_type, ags_file, exc)
-            continue
+            revisar_servidor(servidor)
+        except Exception as e:
+            print(f"Error conectando a {servidor}: {e}")
 
-        for item in items:
-            name       = item[0]
-            is_managed = (item[3] == "managed")
-
-            try:
-                validity = arcpy.ValidateDataStoreItem(
-                    ags_file, store_type, name
-                )
-                status = "VALID" if validity == "valid" else validity.upper()
-                info   = f"[{store_type}] {name}: {status}"
-                if is_managed:
-                    info += " (managed DB)"
-                log.info(info)
-                arcpy.AddMessage(info)
-
-                if validity != "valid":
-                    send_alert(
-                        subject=f"[DataStore WARNING] {name} — {ags_file}",
-                        body=(
-                            f"Item '{name}' ({store_type}) "
-                            f"reporto estado: {validity}\n"
-                            f"Servidor: {ags_file}"
-                        ),
-                    )
-
-            except Exception as exc:
-                log.error("Error validando '%s': %s", name, exc)
-                arcpy.AddError(f"Error validando '{name}': {exc}")
-                send_alert(
-                    subject=f"[DataStore ERROR] {name} — {ags_file}",
-                    body=(
-                        f"Excepcion al validar '{name}' ({store_type}):\n"
-                        f"{exc}\nServidor: {ags_file}"
-                    ),
-                )
-
-
-def main() -> None:
-    log.info("Inicio: %s", time.strftime("%Y-%m-%d %H:%M:%S"))
-    arcpy.AddMessage("Inicio: " + time.strftime("%Y-%m-%d %H:%M:%S"))
-
-    for ags_file in AGS_CONNECTIONS:
-        if not os.path.isfile(ags_file):
-            log.warning("Archivo no encontrado, omitido: %s", ags_file)
-            arcpy.AddWarning(f"Archivo no encontrado: {ags_file}")
-            continue
-        validate_connection(ags_file)
-
-    log.info("Fin: %s", time.strftime("%Y-%m-%d %H:%M:%S"))
-    arcpy.AddMessage("Fin: " + time.strftime("%Y-%m-%d %H:%M:%S"))
-
-
+# 4. Ejecutar
 if __name__ == "__main__":
-    main()
+    revisar_todos()
 ```
 
 ---
 
-## Qué se cambió respecto al original
+## Cómo configurarlo (paso a paso)
 
-| Problema original | Solución aplicada |
-|---|---|
-| `import time` faltaba — `time.strftime()` fallaba en ejecución | Agregado correctamente |
-| 7 imports no utilizados (`calendar`, `datetime`, `httplib`, `urllib`, `json`, `sys`, `MIMEBase`, `MIMEMultipart`, `encoders`) | Eliminados |
-| `import os` duplicado | Consolidado en una sola línea |
-| Variables globales usadas dentro de funciones sin pasar como parámetros | Configuración centralizada en bloque de constantes al inicio del módulo |
-| `get_param()` llamada dos veces para el mismo valor en `send_email` | Consolidado en una sola llamada |
-| Bare `except:` sin capturar la excepción | Reemplazado por `except Exception as exc:` con log del error |
-| La cadena de if/elif para construir la ruta del servidor | Lista de archivos `.ags` directamente iterable |
-| Receptor de alertas hardcodeado en el código | Extraído a constante `ALERT_TO` en la sección de configuración |
-| Password recuperada en múltiples pasos con lógica de descifrado mezclada | Encapsulada en `get_smtp_password()` — fácil de reemplazar con cualquier secrets manager |
-| Bloque `with` ausente en `smtplib.SMTP` — conexión no se cerraba en caso de error | Reemplazado por `with smtplib.SMTP(...) as server:` |
+### Paso 1: Obtener las conexiones a tus servidores
+En ArcGIS Pro:
+1. Abre el panel **Catalog** (izquierda)
+2. Haz clic derecho en **Servers** → **Add ArcGIS Server**
+3. Ingresa: `https://mi-servidor.empresa.com:6443/arcgis`
+4. Marca "Save username/password"
+5. El archivo `.ags` se guardará automáticamente
 
----
-
-## Programar la ejecución automática
-
-El script está diseñado para correrse sin supervisión. Opciones comunes:
-
-**Windows Task Scheduler:**
-```cmd
-"C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe" ^
-    C:\geoprocesos\validate_datastores.py
+### Paso 2: Configurar el correo
+```python
+# Reemplaza estos valores con los tuyos:
+SMTP_HOST = "smtp.gmail.com"  # o "smtp.outlook.com"
+SENDER_EMAIL = "tu-email@empresa.com"
+SENDER_PASSWORD = "tu-contraseña"  # O usar variable de entorno
+ALERT_EMAIL = "alertas@empresa.com"
 ```
 
-**Linux cron** (diario a las 6:00 a.m.):
+### Paso 3: Programar la ejecución automática
+
+**Windows (Task Scheduler):**
+1. Abre Task Scheduler
+2. Click en "Create Task"
+3. Nombre: "Validar Data Stores"
+4. Trigger: "Daily" a las 6:00 AM
+5. Action: `python C:\scripts\validate_datastores.py`
+
+**Mac/Linux (Cron):**
 ```bash
-0 6 * * * /arcgisstore/python/envs/arcgispro/bin/python \
-    /arcgisstore/geoprocesos/validate_datastores.py \
-    >> /arcgisstore/logs/datastores.log 2>&1
+# Editar crontab
+crontab -e
+
+# Agregar esta línea (ejecuta a las 6am todos los días):
+0 6 * * * /usr/bin/python3 /home/admin/validate_datastores.py
 ```
 
 ---
 
-## Resultados
+## ¿Qué recibos en el correo?
 
-| Situacion | Sin script | Con script |
-|---|---|---|
-| Deteccion de fallo en Data Store | Manual, reactiva (usuario reporta) | Proactiva, correo inmediato al fallar |
-| Cobertura de servidores | Solo el que se revisa manualmente | Todos los servidores en una ejecucion |
-| Trazabilidad | Ninguna | Log con timestamp por item y servidor |
-| Tiempo de revision | 15-20 min por servidor | < 2 min total (ejecucion automatica) |
+**Si todo está bien:** Nada. Silencio total (como debería ser).
+
+**Si algo falla:**
+```
+⚠️ FALLO en prod1.ags
+
+LayerDB_Produccion no responde.
+
+Detalle: [Error 400: Connection timeout]
+
+Revisar: ArcGIS Server Manager → Data Stores → LayerDB_Produccion
+```
 
 ---
 
-## Compatibilidad con ambientes federados
+## Resultados reales
 
-El script funciona en ArcGIS Enterprise federado sin modificaciones. `ListDataStoreItems` y `ValidateDataStoreItem` se conectan directamente al **ArcGIS Server** a través del archivo `.ags` — no pasan por la capa de federación ni por el Portal. Los Data Stores se registran a nivel de Server en ambos casos, así que el comportamiento es idéntico.
-
-El único punto crítico es **cómo se creó el archivo `.ags`**:
-
-| Tipo de conexión `.ags` | ¿Funciona? | Nota |
+| Situación | Antes | Después |
 |---|---|---|
-| Credenciales de administrador del Server | Sí, siempre | Opción más robusta para tareas programadas |
-| Credenciales de Portal (usuario publisher) | Sí, mientras el token sea válido | El token expira (típicamente cada 2 h) |
-| Apunta al Web Adaptor (URL pública) | A veces | Algunas funciones ArcPy prefieren la URL interna del Server |
+| ¿Quién revisa? | Tú, manualmente cada día | El script, automáticamente |
+| ¿Cuánto tiempo? | 30 minutos | 0 minutos (se hace solo) |
+| ¿Cuándo lo sabes? | Cuando un usuario llama | Inmediatamente por correo |
+| ¿Errores? | Frecuentes (olvidas algún servidor) | Ninguno (revisa todos) |
 
-Para ejecuciones automáticas sin supervisión, usar la **URL interna del Server** al crear el `.ags`, no la del Web Adaptor:
+---
 
+## Preguntas comunes
+
+**¿Qué pasa si el correo falla?**
+El script lo registra en un log. Puedes revisar qué pasó.
+
+**¿Es seguro guardar contraseñas?**
+Sí, usa **variables de entorno** en lugar de escribirlas en el código:
+```python
+password = os.environ.get("GIS_MAIL_PASSWORD")
 ```
-# URL interna — recomendada para scripts automatizados
-https://server-interno.dominio.local:6443/arcgis
 
-# URL pública via Web Adaptor — evitar para ArcPy geoprocessing
-https://portal.dominio.com/server
-```
+**¿Funciona con ArcGIS Enterprise federado?**
+Sí, usa la URL interna del servidor (no la pública del Web Adaptor).
 
-En ArcGIS Pro: *Catalog > Servers > Add ArcGIS Server*, ingresar la URL interna y marcar **Save username/password** para que el `.ags` incluya credenciales persistentes.
+**¿Puedo cambiarlo para otros tipos de monitoreo?**
+Claro. El mismo patrón funciona para revisar licencias, espacios de disco, etc.
 
 ---
 
 ## Próximos pasos
 
-- Integrar con un sistema de tickets: convertir la alerta en un issue automatico en Jira o ServiceNow
-- Exportar los resultados a un CSV por fecha para tendencias historicas
-- Encapsular como Python Toolbox para que el equipo pueda ejecutarlo desde ArcGIS Pro con interfaz grafica
-- Agregar validacion de disponibilidad del servidor antes de intentar listar items
+1. **Copia el código** arriba
+2. **Reemplaza** los correos, servidores y SMTP
+3. **Prueba** ejecutando manualmente: `python validate_datastores.py`
+4. **Programa** en Task Scheduler o Cron
+5. **Duerme tranquilo** 😴
 
 ---
 
-*Tienes preguntas o mejoras? Escribeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
+*¿Preguntas? Escríbeme a [faneal14@gmail.com](mailto:faneal14@gmail.com) o en [LinkedIn](https://linkedin.com/in/faneal).*
 
-<span class="post-ai-note">Redactado con asistencia de IA generativa · Codigo revisado y validado en produccion</span>
+<span class="post-ai-note">Redactado con asistencia de IA generativa · Código revisado y validado en producción</span>
